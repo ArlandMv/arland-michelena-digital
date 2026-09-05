@@ -1,0 +1,174 @@
+import { ServiceItem, ProjectCase, CapabilityCategory, ProcessPhase, ProofItem } from '../types';
+
+export const HERO_DATA = {
+  name: 'ARLAND',
+  title: 'Full-Stack & AI Engineer',
+  location: 'Santiago, Chile',
+  coordinates: '-33.4489, -70.6693',
+  timezone: 'SCL / UTC-3',
+  status: 'ACTIVE',
+  headline: 'Construyo sistemas completos, desde la aplicación hasta producción.',
+  subheadline: 'Desarrollo aplicaciones, automatizaciones e integraciones de IA para startups, agencias y equipos que necesitan convertir una necesidad técnica en un sistema funcionando en producción.',
+  logoUrl: 'https://lh3.googleusercontent.com/aida/AEtjO1WFRxkIaonmrsil7T6sO4bvR6eJgcFI4FskIQpKkgaJ5J_c0GZZWms4eU2SRfBz607c-jnJS3TszsVMp43XjI54xBECDRZRIQfTUMOKG0fDX6pgY8yGShYkNz9bm1Fal6TORVVpv42ZwWovPQac0iP3X3RqrQ7LsN41IXYCJKjp8wGSt7WjO0o4ws1REyVmQjF4ittfNN_vw9CyZxMQF50NSL02TrFaBxQ2DtevFy4TFfy6mZJKk3D8vdzsYBXlxJ4gFmQYqFO1yXQ',
+  facetedMarkUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCCAHv4Ta5Ilo2DIBgr-prVhfT2MafZX1jT0q-Oxa_ysW4YeEigX8_845w96U8P-aP4WO0jASNuRuO4VgfMd7IKAxcQEnR8g1fpW9W1z0yy7D59Wi1TpR_f2VHpzNsAwV2M9voh_sddh7vlUXV2Ms15Ce2KfTHs0u7RJPZckWzvwtAGJU0vOOSmAMU3_vluWiJmJ6UlItEAzw7mUpxO9gRbO46c0ejU4BEVpky1zL-YBvszIt8dRfDKmg',
+  facetedMarkAlt: 'A striking precision 3D faceted geometric icosahedron emblem rendered in deep royal violet with polished copper and rose-gold chamfered structural edges, floating symmetrically on a technical dark blueprint background with subtle coordinate lines and high-contrast ambient lighting.'
+};
+
+export const SERVICES_DATA: ServiceItem[] = [
+  {
+    id: 'deployment-infra',
+    number: '01',
+    title: 'Deployment & Infrastructure',
+    description: 'Despliegue y operación de aplicaciones utilizando Docker, VPS, Coolify, CI/CD e infraestructura cloud adecuada para garantizar continuidad operacional.',
+    technologies: ['Docker', 'VPS', 'Coolify', 'CI/CD', 'Nginx / Cloudflare']
+  },
+  {
+    id: 'product-development',
+    number: '02',
+    title: 'Product Development',
+    description: 'Aplicaciones web y herramientas internas de extremo a extremo, cubriendo frontend reactivo, APIs backend robustas, persistencia y servicios de terceros.',
+    technologies: ['Angular', 'Nuxt', 'Next.js', 'Spring Boot', 'NestJS', 'Node.js']
+  },
+  {
+    id: 'ai-automation',
+    number: '03',
+    title: 'AI & Automation',
+    description: 'Implementación práctica de agentes de IA, arquitecturas RAG, integraciones de LLMs y automatización de flujos con Python y n8n orientados a resolver procesos de negocio concretos.',
+    technologies: ['RAG', 'AI Agents', 'LLM APIs', 'Python', 'n8n', 'Vector DB']
+  }
+];
+
+export const PROJECTS_DATA: ProjectCase[] = [
+  {
+    id: 'huly-self-hosted',
+    category: 'DEPLOYMENT / INFRASTRUCTURE',
+    badgeType: 'default',
+    title: 'Huly self-hosted para continuidad operacional',
+    description: 'Despliegue integral de entorno colaborativo Huly self-hosted en servidor VPS dedicado para la agencia OQO, asegurando continuidad operativa y privacidad de datos.',
+    contribution: 'VPS deployment · Docker / infraestructura · Configuración y optimización de app · Mantención y continuidad operacional.',
+    tags: ['VPS', 'Docker', 'Linux', 'Self-hosted Huly'],
+    architectureType: 'topology'
+  },
+  {
+    id: 'site-optimization',
+    category: 'WEB / TECHNICAL SEO',
+    badgeType: 'default',
+    title: 'Optimización técnica de sitios y ecommerce',
+    description: 'Auditoría, resolución de cuellos de botella estructurales y optimización técnica para tres plataformas y ecosistemas distintos en producción.',
+    contribution: 'Análisis de renderizado, optimización de estructura semántica y corrección de bloqueos de rastreo.',
+    platforms: [
+      { name: 'OQO.cl', description: 'Nuxt (SSR, routing, rendering pipeline)' },
+      { name: 'CEIM.cl', description: 'Salesforce B2C (arquitectura componentes)' },
+      { name: 'Belkin.cl', description: 'Shopify ecommerce (liquid, scripts & assets)' }
+    ],
+    tags: ['Nuxt', 'Salesforce B2C', 'Shopify', 'Web Standards'],
+    architectureType: 'platforms'
+  },
+  {
+    id: 'ai-ticket-system',
+    category: 'AI / INTERNAL SYSTEMS',
+    badgeType: 'development',
+    title: 'Sistema de tickets con clasificación asistida por IA',
+    description: 'Plataforma interna para gestión de solicitudes y triaje automatizado con clasificación contextual para derivación inteligente de incidentes técnicos.',
+    contribution: 'Arquitectura full-stack, clustering vectorial y prompt pipelines con fallback tolerante a fallos.',
+    tags: ['Angular', 'Python', 'RAG', 'PostgreSQL (pgvector)', 'LLM APIs'],
+    architectureType: 'pipeline'
+  }
+];
+
+export const CAPABILITIES_DATA: CapabilityCategory[] = [
+  {
+    id: 'frontend',
+    title: 'Frontend',
+    iconName: 'web',
+    tools: ['Angular', 'AngularJS', 'Nuxt', 'Next.js', 'TypeScript']
+  },
+  {
+    id: 'backend',
+    title: 'Backend',
+    iconName: 'dns',
+    tools: ['Spring', 'Spring Boot', 'NestJS', 'Node.js', 'Express']
+  },
+  {
+    id: 'data',
+    title: 'Data & Persistence',
+    iconName: 'database',
+    tools: ['PostgreSQL', 'MySQL', 'Cassandra']
+  },
+  {
+    id: 'ai',
+    title: 'AI & Automation',
+    iconName: 'neurology',
+    tools: ['RAG', 'LLM integrations', 'AI agents', 'MCP (Model Context Protocol)', 'Ollama', 'LibreChat', 'n8n', 'Pydantic']
+  },
+  {
+    id: 'infra',
+    title: 'Infrastructure',
+    iconName: 'terminal',
+    tools: ['Docker', 'Coolify', 'CI/CD', 'CDNs', 'Linux VPS']
+  },
+  {
+    id: 'integrations',
+    title: 'Integrations & APIs',
+    iconName: 'sync_alt',
+    tools: ['REST', 'SOAP', 'GraphQL', 'Meta APIs', 'Salesforce APIs']
+  }
+];
+
+export const PROCESS_DATA: ProcessPhase[] = [
+  {
+    id: 'phase-01',
+    phaseCode: 'PHASE_01',
+    percentage: '[ 25% ]',
+    title: 'UNDERSTAND',
+    description: 'Entender el problema de raíz, procesos vigentes, restricciones operativas y sistemas existentes.'
+  },
+  {
+    id: 'phase-02',
+    phaseCode: 'PHASE_02',
+    percentage: '[ 50% ]',
+    title: 'DESIGN',
+    description: 'Definir arquitectura técnica, integraciones, alcance y la solución más pequeña y efectiva posible.'
+  },
+  {
+    id: 'phase-03',
+    phaseCode: 'PHASE_03',
+    percentage: '[ 75% ]',
+    title: 'BUILD',
+    description: 'Implementación incremental, pruebas y conexión controlada de los sistemas necesarios.'
+  },
+  {
+    id: 'phase-04',
+    phaseCode: 'PHASE_04',
+    percentage: '[ 100% ]',
+    title: 'SHIP & ITERATE',
+    description: 'Despliegue a producción, validación en vivo, monitoreo y mejoras basadas en datos.'
+  }
+];
+
+export const PROOF_DATA: ProofItem[] = [
+  {
+    tag: 'ROL ACTUAL',
+    title: 'OQO Agency',
+    subtitle: 'Dic 2025 – Presente',
+    detail: 'Ecommerce, IA & Salesforce B2C'
+  },
+  {
+    tag: 'TRAYECTORIA',
+    title: 'Sector Bancario',
+    subtitle: 'Full-Stack Engineer',
+    detail: 'Microservicios Spring Boot & Angular'
+  },
+  {
+    tag: 'CERTIFICACIÓN',
+    title: 'Agentforce Specialist',
+    subtitle: 'Salesforce Certified',
+    detail: 'Agentes de IA y workflows autónomos'
+  },
+  {
+    tag: 'IDIOMAS & ALCANCE',
+    title: 'Multilingüe',
+    subtitle: 'Español (Nat) · Inglés (Fluido)',
+    detail: 'Francés (Profesional) · Remoto Global'
+  }
+];
