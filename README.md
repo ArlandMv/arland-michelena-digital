@@ -23,6 +23,7 @@ Portafolio de Arland Michelena publicado en **https://arlandstack.com**.
 | `npm run build` | Build de producción en `dist/` |
 | `npm run lint` | Chequeo de tipos con TypeScript (`tsc --noEmit`) |
 | `npm run test:e2e` | Suite Playwright (`e2e/`), incluye pruebas del endpoint `/api/contact` |
+| `npm run smoke` | Smoke test contra producción (`scripts/smoke.mjs`); `SMOKE_BASE_URL` cambia el sitio. También corre en Actions tras cada push a `main` |
 
 ## Flujo de ramas
 
