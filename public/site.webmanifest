@@ -1,0 +1,16 @@
+{
+  "name": "ARLAND — Ingeniero Full-Stack e IA",
+  "short_name": "ARLAND",
+  "description": "Portafolio de Arland Michelena: desarrollo fullstack, Agentforce, automatización e infraestructura.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#0D0D0F",
+  "theme_color": "#0D0D0F",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

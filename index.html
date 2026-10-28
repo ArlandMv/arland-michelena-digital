@@ -16,6 +16,44 @@
     <meta property="og:image:alt" content="ARLAND — Ingeniero Full-Stack e IA · arlandstack.com" />
     <link rel="canonical" href="https://arlandstack.com/" />
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Ciclo 16 (#10): favicon vectorial + respaldos PNG/ICO, apple-touch-icon y manifest. Ver .docs/027-favicon-jsonld.md -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0D0D0F" />
+    <!-- Ciclo 16 (#10): datos estructurados. application/ld+json no se ejecuta, por eso la CSP (script-src sin 'unsafe-inline') no lo bloquea. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://arlandstack.com/#arland",
+          "name": "Arland E. Michelena Villegas",
+          "alternateName": "Arland Michelena",
+          "jobTitle": "Desarrollador fullstack y Agentforce",
+          "url": "https://arlandstack.com/",
+          "image": "https://arlandstack.com/brand/og-arlandstack.png",
+          "knowsLanguage": ["es", "en", "it", "fr"],
+          "sameAs": [
+            "https://github.com/ArlandMv",
+            "https://www.linkedin.com/in/arland-michelena"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://arlandstack.com/#sitio",
+          "name": "ARLAND — Ingeniero Full-Stack e IA",
+          "url": "https://arlandstack.com/",
+          "inLanguage": "es",
+          "author": { "@id": "https://arlandstack.com/#arland" },
+          "publisher": { "@id": "https://arlandstack.com/#arland" }
+        }
+      ]
+    }
+    </script>
     <!-- Ciclo 14: precarga de la imagen LCP (gema del hero). Mismo srcset/sizes que el <source> AVIF de HeroSection. -->
     <link rel="preload" as="image" type="image/avif" fetchpriority="high"
       imagesrcset="/brand/logo-mark-320.avif 320w, /brand/logo-mark-480.avif 480w, /brand/logo-mark-640.avif 640w"
