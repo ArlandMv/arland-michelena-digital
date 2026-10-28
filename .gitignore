@@ -11,3 +11,6 @@ coverage/
 .dev.vars*
 playwright-report/
 test-results/
+
+# Ciclo 18 (#75): salida temporal del build de pre-render
+.ssr/

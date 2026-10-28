@@ -146,9 +146,10 @@ async function main() {
   await check('JS y CSS del build cargan', async () => {
     if (!html) html = await (await get(bust('/'))).text();
     const js = [...html.matchAll(/<script[^>]+src="(\/assets\/[^"]+\.js)"/g)].map((m) => m[1]);
-    const css = [...html.matchAll(/<link[^>]+href="(\/assets\/[^"]+\.css)"/g)].map((m) => m[1]);
+    // Ciclo 18 (#75): el CSS va incrustado en <style data-href="/assets/…css">; el archivo sigue publicado.
+    const css = [...html.matchAll(/<(?:link[^>]+href|style[^>]+data-href)="(\/assets\/[^"]+\.css)"/g)].map((m) => m[1]);
     assert(js.length > 0, 'no se encontró ningún <script src="/assets/*.js"> en la home');
-    assert(css.length > 0, 'no se encontró ningún <link href="/assets/*.css"> en la home');
+    assert(css.length > 0, 'no se encontró ningún CSS del build (<link href> ni <style data-href>) en la home');
     for (const [path, type] of [...js.map((p) => [p, 'javascript']), ...css.map((p) => [p, 'text/css'])]) {
       const res = await get(`${BASE}${path}`);
       assert(res.status === 200, `${path} → ${res.status}`);
@@ -157,6 +158,15 @@ async function main() {
       assert(body.byteLength > 100, `${path} vacío`);
     }
     return [...js, ...css].join(', ');
+  });
+
+  await check('HTML pre-renderizado con el hero (#75)', async () => {
+    if (!html) html = await (await get(bust('/'))).text();
+    const rootHtml = html.split('<div id="root">')[1] ?? '';
+    assert(!rootHtml.startsWith('</div>'), '#root llega vacío: el pre-render no corrió en el build');
+    assert(rootHtml.includes('id="hero"'), 'el HTML pre-renderizado no trae la sección #hero');
+    assert(html.includes('<style data-href="/assets/'), 'el CSS del build no viene incrustado');
+    return '#root trae el hero y el CSS viene incrustado';
   });
 
   await check('Logo e imagen OG cargan', async () => {
