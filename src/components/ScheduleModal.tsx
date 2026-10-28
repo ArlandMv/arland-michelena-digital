@@ -1,5 +1,30 @@
-import React, { useState } from 'react';
-import { X, Calendar, Clock, CheckCircle, Video, User } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { X, Clock, CheckCircle, Video } from 'lucide-react';
+import { WHATSAPP_NUMBER } from '../config/contact';
+
+// Próximos 5 días hábiles (L–V) a partir de mañana, en hora de Santiago.
+// Antes las fechas eran fijas (8–12 sep 2026) y la "reserva" era simulada (#4).
+export function nextBusinessDays(from: Date = new Date(), count = 5) {
+  const fmtValue = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Santiago', year: 'numeric', month: '2-digit', day: '2-digit' });
+  const fmtLabel = new Intl.DateTimeFormat('es-CL', { timeZone: 'America/Santiago', weekday: 'short', day: 'numeric', month: 'short' });
+  const fmtDow = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', weekday: 'short' });
+  const out: { label: string; value: string }[] = [];
+  const d = new Date(from.getTime());
+  while (out.length < count) {
+    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+    const dow = fmtDow.format(d);
+    if (dow === 'Sat' || dow === 'Sun') continue;
+    const label = fmtLabel.format(d).replace(/\./g, '');
+    out.push({ label: label.charAt(0).toUpperCase() + label.slice(1), value: fmtValue.format(d) });
+  }
+  return out;
+}
+
+export function buildScheduleWhatsAppUrl(p: { name: string; email: string; date: string; time: string; topic: string }) {
+  const text = `Hola Arland, vi tu portafolio en arlandstack.com y me gustaría agendar una llamada técnica de 30 min.\n` +
+    `Nombre: ${p.name}\nEmail: ${p.email}\nFecha propuesta: ${p.date}\nHora propuesta: ${p.time} (hora de Santiago)\nObjetivo: ${p.topic}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
 
 interface ScheduleModalProps {
   isOpen: boolean;
@@ -7,8 +32,9 @@ interface ScheduleModalProps {
 }
 
 export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose }) => {
-  const [selectedDate, setSelectedDate] = useState('2026-09-08');
-  const [selectedTime, setSelectedTime] = useState('11:00');
+  const dates = useMemo(() => nextBusinessDays(), [isOpen]);
+  const [selectedDate, setSelectedDate] = useState(() => nextBusinessDays()[0].value);
+  const [selectedTime, setSelectedTime] = useState('10:30');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [topic, setTopic] = useState('Evaluación de arquitectura e integración de IA');
@@ -16,20 +42,19 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
 
   if (!isOpen) return null;
 
-  const dates = [
-    { label: 'Lun, 8 Sep', value: '2026-09-08' },
-    { label: 'Mar, 9 Sep', value: '2026-09-09' },
-    { label: 'Mié, 10 Sep', value: '2026-09-10' },
-    { label: 'Jue, 11 Sep', value: '2026-09-11' },
-    { label: 'Vie, 12 Sep', value: '2026-09-12' },
-  ];
-
   const timeSlots = [
     '09:30', '10:30', '11:30', '14:30', '15:30', '16:30'
   ];
 
   const handleBooking = (e: React.FormEvent) => {
     e.preventDefault();
+    // No hay agenda real: se abre WhatsApp con la propuesta y Arland confirma manualmente.
+    const dateLabel = dates.find((d) => d.value === selectedDate)?.label ?? selectedDate;
+    window.open(
+      buildScheduleWhatsAppUrl({ name, email, date: `${dateLabel} (${selectedDate})`, time: selectedTime, topic }),
+      '_blank',
+      'noopener,noreferrer',
+    );
     setBooked(true);
   };
 
@@ -41,6 +66,9 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
     >
       <div
         id="schedule-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Agendar llamada técnica"
         className="bg-[#141418] border border-[#292930] rounded-[10px] w-full max-w-lg p-6 sm:p-8 shadow-2xl text-[#F4F1ED] relative flex flex-col gap-5 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -58,10 +86,10 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
               <CheckCircle className="w-8 h-8" />
             </div>
             <h3 className="font-['IBM_Plex_Sans'] text-2xl font-medium">
-              Sesión agendada con éxito
+              Solicitud lista en WhatsApp
             </h3>
             <p className="font-['IBM_Plex_Sans'] text-sm text-[#A8A6AD] max-w-sm">
-              Te hemos enviado la invitación de Google Meet y los detalles de conexión a <strong>{email}</strong> para el {selectedDate} a las {selectedTime} (SCL / UTC-3).
+              Envía el mensaje en WhatsApp para proponer el {selectedDate} a las {selectedTime} (hora de Santiago). Te confirmaré el horario y te enviaré el enlace de Google Meet a <strong>{email}</strong>.
             </p>
             <button
               onClick={() => {
@@ -82,6 +110,9 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
               <h3 className="font-['IBM_Plex_Sans'] text-xl sm:text-2xl font-medium text-[#F4F1ED]">
                 Llamada técnica de 30 minutos
               </h3>
+              <p className="font-['IBM_Plex_Sans'] text-[12px] text-[#A8A6AD]">
+                Propón un horario y lo confirmo por WhatsApp; aún no hay reserva automática.
+              </p>
               <div className="flex items-center gap-4 text-[12px] text-[#A8A6AD] mt-1">
                 <span className="flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-[#B66A43]" />
@@ -97,11 +128,11 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
               </div>
             </div>
 
-            <form onSubmit={handleBooking} className="flex flex-col gap-4">
+            <form id="schedule-form" onSubmit={handleBooking} className="flex flex-col gap-4">
               {/* Date Selection */}
               <div className="flex flex-col gap-2">
                 <label className="font-['IBM_Plex_Mono'] text-[11px] text-[#A8A6AD] uppercase tracking-wider">
-                  1. Selecciona una fecha
+                  1. Elige una fecha preferida
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {dates.map((d) => (
@@ -124,7 +155,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
               {/* Time Slots */}
               <div className="flex flex-col gap-2">
                 <label className="font-['IBM_Plex_Mono'] text-[11px] text-[#A8A6AD] uppercase tracking-wider">
-                  2. Horario disponible (Hora de Santiago)
+                  2. Horario preferido (hora de Santiago)
                 </label>
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
                   {timeSlots.map((time) => (
@@ -189,10 +220,11 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
               </div>
 
               <button
+                id="schedule-submit-button"
                 type="submit"
                 className="mt-2 w-full py-3 bg-[#7A2E84] hover:bg-[#67276B] text-[#F4F1ED] font-semibold text-sm rounded-[6px] transition-all cursor-pointer shadow-md"
               >
-                Confirmar reserva ({selectedTime} hrs)
+                Proponer horario por WhatsApp ({selectedTime} hrs)
               </button>
             </form>
           </>

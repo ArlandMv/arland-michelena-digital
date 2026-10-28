@@ -36,3 +36,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [016](016-agenda-reuniones.md) | Agenda de reuniones (Calendly / Cal.com / Google Calendar) | #24 | media | Propuesta — decisión de Arland |
 | [017](017-turnstile-y-secrets.md) | Activación del formulario: Turnstile, secrets y variable de build | — | alta | Implementado |
 | [018](018-etiquetas-espanol.md) | Etiquetas de sección en inglés | #32 | media | Implementada (Ciclo 03) |
+| [019](019-schedule-modal-honesto.md) | ScheduleModal simulaba reservas | #4 | alta | Implementada (Ciclo 04) |

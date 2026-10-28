@@ -1,7 +1,7 @@
 # 002 — Agenda simulada → WhatsApp
 
 - **Issue:** #4, #18 · **Prioridad alta**
-- **Estado:** Implementada en `dev` (PR #19); ajustes en PR posterior: [https://github.com/ArlandMv/arland-michelena-digital/pull/19](https://github.com/ArlandMv/arland-michelena-digital/pull/19)
+- **Estado:** Implementada en `dev` (PR #19); modal honesto en [019](019-schedule-modal-honesto.md); ajustes previos: [https://github.com/ArlandMv/arland-michelena-digital/pull/19](https://github.com/ArlandMv/arland-michelena-digital/pull/19)
 
 ## Problema y evidencia
 `ScheduleModal.tsx:31-34` confirma reservas que no existen. Issues: [https://github.com/ArlandMv/arland-michelena-digital/issues/4](https://github.com/ArlandMv/arland-michelena-digital/issues/4), [https://github.com/ArlandMv/arland-michelena-digital/issues/18](https://github.com/ArlandMv/arland-michelena-digital/issues/18).
