@@ -50,8 +50,8 @@ export const CapabilitiesSection: React.FC = () => {
               className="bg-[#FAF8F5] border border-[#D8D3CD] rounded-[8px] p-6 flex flex-col gap-3 hover:border-[#B66A43] hover:shadow-sm transition-all"
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[#70402D] text-[22px] flex items-center justify-center">
-                  {item.iconName}
+                <span className="flex items-center justify-center" aria-hidden="true">
+                  {getLucideIcon(item.id)}
                 </span>
                 <h3 className="font-['IBM_Plex_Sans'] font-semibold text-[16px] text-[#171619]">
                   {item.title}
