@@ -19,6 +19,8 @@ export default defineConfig({
   ],
   webServer: {
     command: 'npm run dev',
+    // Número ficticio solo para tests E2E (no es un número real).
+    env: { VITE_WHATSAPP_NUMBER: process.env.VITE_WHATSAPP_NUMBER || '56900000000' },
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
