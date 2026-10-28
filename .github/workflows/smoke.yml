@@ -27,7 +27,7 @@ jobs:
   smoke:
     name: Smoke test arlandstack.com
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 40
 
     steps:
       - name: Checkout Repository
@@ -38,11 +38,24 @@ jobs:
         with:
           node-version: 20
 
+      # Espera el commit en producción; si vence y el build de Workers Builds de main falló
+      # (p. ej. error al clonar), lo relanza por la API (máx. 2) y vuelve a esperar.
+      # Ver .docs/029-reintento-workers-builds.md
+      - name: Esperar deploy (con reintento de Workers Builds)
+        if: github.event_name == 'push' || inputs.esperar_deploy
+        env:
+          GUARD_SHA: ${{ github.sha }}
+          GUARD_WAIT_SECONDS: '480'
+          GUARD_MAX_RETRIES: '2'
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: node scripts/deploy-guard.mjs
+
       - name: Run smoke test
         env:
           SMOKE_BASE_URL: https://arlandstack.com
           SMOKE_EXPECTED_SHA: ${{ (github.event_name == 'push' || inputs.esperar_deploy) && github.sha || '' }}
-          SMOKE_WAIT_SECONDS: '480'
+          SMOKE_WAIT_SECONDS: '120'
         run: node scripts/smoke.mjs
 
       - name: Notify failure (issue)
