@@ -33,10 +33,21 @@ export default defineConfig({
       use: { ...devices['iPhone 14'] },
     },
   ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
-  },
+  webServer: [
+    {
+      command: 'npm run dev',
+      url: 'http://localhost:3000',
+      reuseExistingServer: !process.env.CI,
+      timeout: 120000,
+    },
+    {
+      // Ciclo 15 (#65): segunda instancia con una site key de Turnstile para probar la carga diferida.
+      // Es la site key pública de pruebas de Cloudflare; el script de Turnstile se simula en la prueba.
+      command: 'npx vite --port=3001 --host=0.0.0.0',
+      url: 'http://localhost:3001',
+      env: { VITE_TURNSTILE_SITE_KEY: '1x00000000000000000000AA' },
+      reuseExistingServer: !process.env.CI,
+      timeout: 120000,
+    },
+  ],
 });
