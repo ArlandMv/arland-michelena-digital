@@ -65,7 +65,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#B66A43]" />
             <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] tracking-widest uppercase font-medium">
-              FULL-STACK · AI · AUTOMATION · INFRASTRUCTURE
+              FULL-STACK · IA · AUTOMATIZACIÓN · INFRAESTRUCTURA
             </span>
           </div>
 

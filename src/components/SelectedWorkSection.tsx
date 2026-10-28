@@ -14,7 +14,7 @@ export const SelectedWorkSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col gap-1.5 max-w-3xl">
           <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#D38A5F] tracking-wider font-semibold uppercase">
-            02 / SELECTED WORK
+            02 / PROYECTOS DESTACADOS
           </span>
           <h2 className="font-['IBM_Plex_Sans'] text-3xl sm:text-4xl lg:text-[36px] text-[#F4F1ED] tracking-tight font-medium">
             Trabajo aplicado a problemas reales.
@@ -34,7 +34,7 @@ export const SelectedWorkSection: React.FC = () => {
             <div className="flex-1 flex flex-col gap-4">
               <div className="inline-flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded bg-[#1B1B21] font-['IBM_Plex_Mono'] text-[11px] text-[#B66A43] border border-[#292930] font-medium tracking-wide">
-                  DEPLOYMENT / INFRASTRUCTURE
+                  DESPLIEGUE / INFRAESTRUCTURA
                 </span>
               </div>
 
@@ -110,7 +110,7 @@ export const SelectedWorkSection: React.FC = () => {
             <div className="flex-1 flex flex-col gap-4">
               <div className="inline-flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded bg-[#1B1B21] font-['IBM_Plex_Mono'] text-[11px] text-[#B67ABA] border border-[#292930] font-medium tracking-wide">
-                  WEB / TECHNICAL SEO
+                  WEB / SEO TÉCNICO
                 </span>
               </div>
 
@@ -182,7 +182,7 @@ export const SelectedWorkSection: React.FC = () => {
             <div className="flex-1 flex flex-col gap-4">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded bg-[#1B1B21] font-['IBM_Plex_Mono'] text-[11px] text-[#B66A43] border border-[#292930] font-medium tracking-wide">
-                  AI / INTERNAL SYSTEMS
+                  IA / SISTEMAS INTERNOS
                 </span>
                 <span className="px-2.5 py-0.5 rounded bg-[#70402D]/30 border border-[#B66A43] text-[#B66A43] font-['IBM_Plex_Mono'] text-[11px] font-medium">
                   IN DEVELOPMENT
@@ -212,7 +212,7 @@ export const SelectedWorkSection: React.FC = () => {
             {/* Architecture Diagram 3 (Interactive Pipeline Flow) */}
             <div className="w-full lg:w-[420px] bg-[#0D0D0F] p-5 rounded-[6px] border border-[#292930] flex flex-col gap-3">
               <div className="font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider uppercase border-b border-[#292930] pb-2 flex items-center justify-between">
-                <span>PIPELINE INTEGRATION FLOW</span>
+                <span>FLUJO DE INTEGRACIÓN</span>
                 <span className="text-[#B67ABA] font-['IBM_Plex_Mono'] font-medium">
                   ASYNC_QUEUE
                 </span>
@@ -221,7 +221,7 @@ export const SelectedWorkSection: React.FC = () => {
               <div className="flex flex-col gap-2 font-['JetBrains_Mono'] text-[12px]">
                 {/* Node 1 */}
                 <div className="flex items-center justify-between p-2.5 bg-[#1B1B21] rounded border border-[#292930]">
-                  <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold">User Portal</span>
+                  <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold">Portal de usuarios</span>
                   <span className="text-[#B67ABA] text-[11px]">Angular App</span>
                 </div>
 
@@ -231,8 +231,8 @@ export const SelectedWorkSection: React.FC = () => {
 
                 {/* Node 2 */}
                 <div className="flex items-center justify-between p-2.5 bg-[#1B1B21] rounded border border-[#292930]">
-                  <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold">Ticket Engine</span>
-                  <span className="text-[#A8A6AD] text-[11px]">Routing Controller</span>
+                  <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold">Motor de tickets</span>
+                  <span className="text-[#A8A6AD] text-[11px]">Controlador de ruteo</span>
                 </div>
 
                 <div className="flex justify-center text-[#B66A43] font-['IBM_Plex_Mono'] text-[10px] leading-none py-0.5">
@@ -241,7 +241,7 @@ export const SelectedWorkSection: React.FC = () => {
 
                 {/* Node 3 */}
                 <div className="flex items-center justify-between p-2.5 bg-[#67276B]/40 rounded border border-[#7A2E84] shadow-[0_0_12px_rgba(122,46,132,0.2)]">
-                  <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold">Python AI Agent</span>
+                  <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold">Agente IA en Python</span>
                   <span className="text-[#B67ABA] text-[11px]">Classifier / RAG</span>
                 </div>
 
