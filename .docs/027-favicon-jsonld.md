@@ -3,7 +3,7 @@
 - **Issue:** [#10](https://github.com/ArlandMv/arland-michelena-digital/issues/10) (resto: canonical, og:url y og:image ya se resolvieron en el Ciclo 10, ver [021](021-pruebas-movil-a11y-seo.md) y [008](008-seo-og.md))
 - **Ciclo:** 16 (28-10-2026)
 - **Prioridad:** media · **Tipo:** SEO / redes
-- **Estado:** Implementado y cubierto por pruebas (`e2e/favicon-jsonld.spec.ts`).
+- **Estado:** Implementado, probado y mergeado a `main` (release #70, `aacd780`). **Deploy a producción pendiente**: Workers Builds no inicializó el build de `main` (ver "Incidente de deploy").
 
 ## Problema
 - El sitio no declaraba favicon: los navegadores pedían `/favicon.ico` y, por el `not_found_handling: single-page-application` del Worker, recibían **200 con el HTML de la SPA** (ícono genérico en pestañas, marcadores y resultados de Google).
@@ -42,3 +42,14 @@ Para el JSON-LD:
 ## Pendiente / ideas
 - Validar en [Rich Results Test](https://search.google.com/test/rich-results) y en Search Console tras la indexación (manual, requiere la cuenta de Arland).
 - Si en el futuro hay un logo SVG oficial (ver `public/logos/README.md`), reemplazar `favicon.svg` por esa versión.
+
+## Incidente de deploy (Ciclo 16, 28-10-2026)
+- PR a dev #69 y release #70 mergeados con CI verde (lint, build, E2E en 4 proyectos y Workers Build de la preview).
+- La preview de la rama (`seo-favicon-jsonld-…workers.dev`) sirvió los íconos y el manifest con 200 y `content-type` correcto; Lighthouse móvil: rendimiento 99, accesibilidad 100, buenas prácticas 100 (SEO 69 solo por el `noindex` de workers.dev).
+- El build de producción de `main` (`aacd780`, 08:53 hora de Chile) terminó en **`terminated`**: *"Build initialization failed: unable to verify Worker · Build failed to initialize and was timed out"*. Un reintento manual del mismo trigger (08:59) falló igual. Cloudflare reportaba en ese momento "Network Performance Issues in Ashburn, IAD".
+- Producción siguió sirviendo `f21095f` (Ciclo 15) sin caída; el smoke de Actions falló como corresponde ("producción sigue sirviendo f21095f").
+
+### Posibles soluciones
+1. Reintentar el build de `main` desde el dashboard (Workers → arland-michelena-digital → Deployments/Builds → *Retry*) o con la API de Workers Builds cuando Cloudflare normalice; luego re-ejecutar el workflow smoke.
+2. Si persiste "unable to verify Worker": revisar en el dashboard que la conexión con GitHub y el *build token* sigan válidos (los builds de ramas sí funcionaron, así que es poco probable).
+3. Último recurso (decisión de Arland): `npx wrangler deploy` manual desde `main` con `WORKERS_CI_COMMIT_SHA=aacd780…` para que el meta `build-commit` coincida.
