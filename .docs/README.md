@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 00:48 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 01:10 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -12,17 +12,17 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 
 ## Estado general
 - El CI de GitHub (lint, build, E2E) pasa.
-- El check **Workers Builds** de Cloudflare falla en todos los PR; bloquea merges a `main` hasta resolver [004](004-despliegue.md).
-- Formulario y agenda no entregan mensajes hoy; son la prioridad ([001](001-formulario-contacto.md), [002](002-agenda-whatsapp.md)).
+- El check **Workers Builds** de Cloudflare pasa desde que `wrangler.jsonc` está versionado ([004](004-despliegue.md)).
+- La agenda simulada se reemplazó por WhatsApp ([002](002-agenda-whatsapp.md)); el formulario aún no entrega mensajes ([001](001-formulario-contacto.md)).
 
 ## Índice
 | # | Tema | Issue | Prioridad | Estado |
 |---|---|---|---|---|
 | [001](001-formulario-contacto.md) | Formulario de contacto real | #3 | alta | Propuesta |
-| [002](002-agenda-whatsapp.md) | Agenda simulada → WhatsApp | #4, #18 | alta | En PR: [https://github.com/ArlandMv/arland-michelena-digital/pull/19](https://github.com/ArlandMv/arland-michelena-digital/pull/19) |
+| [002](002-agenda-whatsapp.md) | Agenda simulada → WhatsApp | #4, #18 | alta | Implementada en `dev` ([PR #19](https://github.com/ArlandMv/arland-michelena-digital/pull/19)); falta `VITE_WHATSAPP_NUMBER` en Cloudflare |
 | [003](003-anti-spam.md) | Protección anti-spam del formulario | #5 | alta | Propuesta |
-| [004](004-despliegue.md) | Una sola vía de despliegue | #6 | alta | Esperando decisión/credenciales de Arland |
-| [005](005-ci-ramas.md) | CI escuchando `develop` | #7 | media | En PR: [https://github.com/ArlandMv/arland-michelena-digital/pull/2](https://github.com/ArlandMv/arland-michelena-digital/pull/2) |
+| [004](004-despliegue.md) | Una sola vía de despliegue | #6 | alta | Implementada en `dev` ([PR #21](https://github.com/ArlandMv/arland-michelena-digital/pull/21)) |
+| [005](005-ci-ramas.md) | CI escuchando `develop` | #7 | media | Resuelto en `dev`; llega a `main` con el PR `dev` → `main` |
 | [006](006-cabeceras-seguridad.md) | Cabeceras de seguridad y CSP | #8 | media | Propuesta |
 | [007](007-robots-sitemap.md) | robots.txt y sitemap.xml | #9 | media | Propuesta |
 | [008](008-seo-og.md) | Metadatos OG, canonical y favicon | #10 | media | Propuesta |
