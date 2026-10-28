@@ -33,8 +33,26 @@ jobs:
       - name: Build Production Bundle
         run: npm run build
 
+      # Ciclo 13: Chromium + WebKit (Safari). Los binarios se cachean por versión de Playwright;
+      # las dependencias del sistema se instalan siempre porque viven fuera de la caché.
+      - name: Get Playwright Version
+        id: playwright-version
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}-chromium-webkit
+
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Install Playwright System Dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium webkit
 
       - name: Run E2E Tests
         run: npx playwright test
