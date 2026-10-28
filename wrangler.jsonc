@@ -1,0 +1,14 @@
+{
+  // Configuración del Worker que publica www.arlandstack.com (Workers Builds).
+  // Ver .docs/004-despliegue.md
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "arland-michelena-digital",
+  "compatibility_date": "2026-10-01",
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
