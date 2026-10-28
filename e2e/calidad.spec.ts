@@ -1,8 +1,21 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import type { Page } from '@playwright/test';
 
 // #35: accesibilidad, consola limpia, recursos sin errores y SEO básico.
 const PROD = 'https://arlandstack.com/';
+
+// Recorre la página hasta el final para forzar la carga de recursos diferidos.
+// Se usa scroll por script y no `mouse.wheel` porque WebKit móvil (iPhone) no soporta la rueda del mouse.
+async function recorrerPagina(page: Page) {
+  await page.evaluate(async () => {
+    for (let y = 0; y <= document.body.scrollHeight; y += window.innerHeight) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 50));
+    }
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+}
 
 test('sin violaciones de accesibilidad serias o críticas (axe)', async ({ page }) => {
   await page.goto('/');
@@ -24,7 +37,7 @@ test('la consola no muestra errores ni excepciones al cargar', async ({ page }) 
   page.on('pageerror', (e) => errores.push(String(e)));
   await page.goto('/');
   await page.waitForLoadState('networkidle');
-  await page.mouse.wheel(0, 20000); // fuerza carga de recursos diferidos
+  await recorrerPagina(page);
   await page.waitForLoadState('networkidle');
   expect(errores).toEqual([]);
 });
@@ -40,7 +53,7 @@ test('ninguna petición devuelve 4xx/5xx ni falla', async ({ page }) => {
   });
   await page.goto('/');
   await page.waitForLoadState('networkidle');
-  await page.mouse.wheel(0, 20000);
+  await recorrerPagina(page);
   await page.waitForLoadState('networkidle');
   expect(malas).toEqual([]);
 });
