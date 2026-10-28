@@ -39,7 +39,15 @@ Hoy el edge inyecta `beacon.min.js` (auto-inyección). Opciones:
 - **Desactivar la auto-inyección** (Cloudflare → Analytics & Logs → Web Analytics → sitio → *Manage site* → desactivar *Automatic setup*/JS snippet) y cargar el snippet manual desde el código tras `requestIdleCallback`. Requiere copiar el `token` público del sitio a una variable de build (`VITE_CF_BEACON_TOKEN`) y mantener la CSP actual. No se cambió el dashboard en este ciclo.
 
 ## Medidas
+Lighthouse 12.8.2, móvil simulado, Chromium 156 de Playwright desde el box (la red del box introduce mucha varianza en producción).
+
 | Medición | Antes | Después |
 |---|---|---|
-| Producción (3 corridas, mediana) | 65 / 91 / 86 → **86** | ver tabla abajo |
-| Preview de rama | 97 (Ciclo 14) | ver tabla abajo |
+| Producción `https://arlandstack.com/` (3 corridas) | 65 / 91 / 86 → mediana **86** | ver “Producción tras el deploy” |
+| Preview de rama | 97 (Ciclo 14, `perf/lcp-hero-es`) | 98 / 99 / 99 → mediana **99** (LCP 2,0–2,2 s, TBT 30–120 ms, CLS 0,013) |
+| Peticiones a `challenges.cloudflare.com` en la carga inicial | 6 (preview Ciclo 14) / 13 (producción) | **0**; 14 al bajar al formulario |
+
+### Verificación del widget en la preview
+Al bajar a `#contacto` (Pixel 7, escritorio 1440 px y iPhone 14/WebKit) se descarga `api.js?render=explicit`, se renderiza el widget y aparece el input `cf-turnstile-response`. En los dominios `*.workers.dev` de preview el widget muestra “No es posible conectarse al sitio web” — **ocurre igual en la preview del Ciclo 14 (carga implícita)**: el hostname de preview no está en la lista de dominios del widget de Turnstile. En producción (`arlandstack.com`) el widget muestra “Verifique que es un ser humano”. Si se quiere probar el formulario completo en previews, agregar `michelenaarland.workers.dev` a los hostnames del widget en el dashboard de Turnstile (decisión de Arland).
+
+Capturas: `/workspace/ciclo15/` en el box (no se versionan).
