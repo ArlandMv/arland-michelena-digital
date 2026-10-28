@@ -9,8 +9,8 @@ export const HERO_DATA = {
   status: 'ACTIVE',
   headline: 'Construyo sistemas completos, desde la aplicación hasta producción.',
   subheadline: 'Desarrollo aplicaciones, automatizaciones e integraciones de IA para startups, agencias y equipos que necesitan convertir una necesidad técnica en un sistema funcionando en producción.',
-  logoUrl: 'https://lh3.googleusercontent.com/aida/AEtjO1WFRxkIaonmrsil7T6sO4bvR6eJgcFI4FskIQpKkgaJ5J_c0GZZWms4eU2SRfBz607c-jnJS3TszsVMp43XjI54xBECDRZRIQfTUMOKG0fDX6pgY8yGShYkNz9bm1Fal6TORVVpv42ZwWovPQac0iP3X3RqrQ7LsN41IXYCJKjp8wGSt7WjO0o4ws1REyVmQjF4ittfNN_vw9CyZxMQF50NSL02TrFaBxQ2DtevFy4TFfy6mZJKk3D8vdzsYBXlxJ4gFmQYqFO1yXQ',
-  facetedMarkUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCCAHv4Ta5Ilo2DIBgr-prVhfT2MafZX1jT0q-Oxa_ysW4YeEigX8_845w96U8P-aP4WO0jASNuRuO4VgfMd7IKAxcQEnR8g1fpW9W1z0yy7D59Wi1TpR_f2VHpzNsAwV2M9voh_sddh7vlUXV2Ms15Ce2KfTHs0u7RJPZckWzvwtAGJU0vOOSmAMU3_vluWiJmJ6UlItEAzw7mUpxO9gRbO46c0ejU4BEVpky1zL-YBvszIt8dRfDKmg',
+  logoUrl: '/brand/logo-mark-64.webp',
+  facetedMarkUrl: '/brand/logo-mark-640.webp',
   facetedMarkAlt: 'A striking precision 3D faceted geometric icosahedron emblem rendered in deep royal violet with polished copper and rose-gold chamfered structural edges, floating symmetrically on a technical dark blueprint background with subtle coordinate lines and high-contrast ambient lighting.'
 };
 
