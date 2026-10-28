@@ -31,5 +31,20 @@ for (const [tag, href] of cssLinks) {
   html = html.replace(tag, () => `<style data-href="${href}">${css}</style>`);
 }
 
+// Ciclo 19: el plugin preloadFonts deja las precargas de fuentes al final del <head>, detrás de
+// ~33 KB de CSS incrustado y del <script type="module">. Se mueven justo después de la precarga
+// de la imagen LCP (antes del dns-prefetch del beacon), para que el navegador las pida antes.
+// Ver .docs/030-orden-head-lcp.md
+const fontPreloads = [...html.matchAll(/[ \t]*<link rel="preload"[^>]*as="font"[^>]*>\n?/g)].map((m) => m[0]);
+if (fontPreloads.length) {
+  for (const tag of fontPreloads) html = html.replace(tag, '');
+  const anchor = html.indexOf('<link rel="dns-prefetch"');
+  const firstStyle = html.indexOf('<style data-href');
+  const at = anchor !== -1 ? anchor : firstStyle;
+  if (at === -1) throw new Error('prerender: no se encontró dónde reubicar las precargas de fuentes');
+  const block = fontPreloads.map((t) => t.trim()).join('\n    ') + '\n    ';
+  html = html.slice(0, at) + block + html.slice(at);
+}
+
 writeFileSync(htmlPath, html);
-console.log(`prerender: ${(appHtml.length / 1024).toFixed(1)} KiB de HTML y ${cssLinks.length} CSS incrustado(s) en dist/index.html`);
+console.log(`prerender: ${(appHtml.length / 1024).toFixed(1)} KiB de HTML y ${cssLinks.length} CSS incrustado(s) y ${fontPreloads.length} precarga(s) de fuente reubicada(s) en dist/index.html`);

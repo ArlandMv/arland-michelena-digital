@@ -48,3 +48,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [027](027-favicon-jsonld.md) | Favicon SVG + respaldos PNG/ICO, apple-touch-icon, manifest y JSON-LD Person/WebSite | #10 | media | Implementada (Ciclo 16), en producción desde el Ciclo 17 |
 | [028](028-prerender-css-critico.md) | Pre-render del HTML y CSS incrustado para el primer pintado móvil | #75 | media | Implementada (Ciclo 18), en producción |
 | [029](029-reintento-workers-builds.md) | Reintento automático de Workers Builds en el smoke de producción | — | media | Implementada |
+| [030](030-orden-head-lcp.md) | Precargas de fuentes antes del CSS incrustado en el `<head>` | #82 | baja | Implementada (Ciclo 19) |
