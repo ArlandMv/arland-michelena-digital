@@ -41,3 +41,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [020](020-formulario-punta-a-punta.md) | Formulario de punta a punta: errores JSON y pruebas del endpoint | #3, #5, #33 | alta | Implementada (Ciclo 08) |
 | [021](021-pruebas-movil-a11y-seo.md) | Pruebas de móvil, navegación, accesibilidad, consola, recursos y SEO | #34, #35 | media | Implementada (Ciclo 10) |
 | [022](022-smoke-produccion.md) | Smoke test contra producción después de cada deploy | #36 | media | Implementada (Ciclo 11) |
+| [023](023-fuentes-self-host.md) | Fuentes servidas desde el propio dominio (self-host) | #12 | media | Implementada (Ciclo 12) |

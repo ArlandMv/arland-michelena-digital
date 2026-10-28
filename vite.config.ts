@@ -16,9 +16,32 @@ function buildCommit(): Plugin {
   };
 }
 
+/**
+ * Ciclo 12: precarga las fuentes del primer render (IBM Plex Sans latin 400/500/600) que
+ * Vite emite con hash, para que el navegador no espere a leer el CSS antes de pedirlas.
+ */
+function preloadFonts(): Plugin {
+  const wanted = /ibm-plex-sans-latin-(400|500|600)-normal.*\.woff2$/;
+  return {
+    name: 'preload-fonts',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler: (_html, ctx) =>
+        Object.keys(ctx.bundle ?? {})
+          .filter((f) => wanted.test(f))
+          .map((f) => ({
+            tag: 'link',
+            attrs: {rel: 'preload', href: `/${f}`, as: 'font', type: 'font/woff2', crossorigin: ''},
+            injectTo: 'head' as const,
+          })),
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), buildCommit()],
+    plugins: [react(), tailwindcss(), buildCommit(), preloadFonts()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
