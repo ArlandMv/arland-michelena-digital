@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 06:45 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 08:50 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -26,7 +26,7 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [005](005-ci-ramas.md) | CI escuchando `develop` | #7 | media | Resuelto en `dev`; llega a `main` con el PR `dev` → `main` |
 | [006](006-cabeceras-seguridad.md) | Cabeceras de seguridad y CSP | #8 | media | Propuesta |
 | [007](007-robots-sitemap.md) | robots.txt y sitemap.xml | #9 | media | Implementada (Ciclo 06) |
-| [008](008-seo-og.md) | Metadatos OG, canonical y favicon | #10 | media | Parcial (Ciclo 10): canonical, og:url y og:image; faltan favicon y JSON-LD |
+| [008](008-seo-og.md) | Metadatos OG, canonical y favicon | #10 | media | Implementada: canonical, og:url y og:image (Ciclo 10); favicon y JSON-LD (Ciclo 16, ver 027) |
 | [009](009-logo-roto.md) | Logo alojado en googleusercontent | #11 | alta | Implementada (Ciclo 01) |
 | [010](010-fuentes.md) | Fuente Material Symbols de ~3,9 MB | #12 | alta | Implementada (Ciclo 02) |
 | [011](011-imagen-pesada.md) | logo-1536.png de 1,9 MB | #13 | baja | Implementada (Ciclo 06) |
@@ -45,3 +45,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [024](024-webkit-ci.md) | Pruebas en WebKit (Safari) escritorio y iPhone, también en CI | #34, #35 | media | Implementada (Ciclo 13) |
 | [025](025-lcp-hero-y-etiquetas.md) | Imagen LCP del hero en AVIF precargado y etiquetas decorativas en español | #62 | media | Implementada (Ciclo 14) |
 | [026](026-turnstile-diferido.md) | Turnstile diferido hasta acercarse al formulario y dns-prefetch del beacon | #65 | media | Implementada (Ciclo 15); auto-inyección del beacon: decisión de Arland |
+| [027](027-favicon-jsonld.md) | Favicon SVG + respaldos PNG/ICO, apple-touch-icon, manifest y JSON-LD Person/WebSite | #10 | media | Implementada (Ciclo 16) |
