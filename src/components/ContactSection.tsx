@@ -21,6 +21,14 @@ const ERROR_MESSAGES: Record<string, string> = {
   turnstile: 'No pudimos verificar que no eres un bot. Recarga la página e inténtalo de nuevo.',
   rate_limited: 'Demasiados envíos seguidos. Espera unos minutos e inténtalo de nuevo.',
 };
+const FIELD_LABELS: Record<string, string> = {
+  name: 'nombre',
+  email: 'email válido',
+  organization: 'empresa (máx. 160 caracteres)',
+  projectStage: 'estado del proyecto',
+  message: 'mensaje (mín. 10 caracteres)',
+};
+const TURNSTILE_PENDING = 'Completa la verificación anti-bots antes de enviar (puede tardar unos segundos).';
 const DEFAULT_ERROR = 'No se pudo enviar tu mensaje. Inténtalo de nuevo o escríbeme por WhatsApp o email.';
 
 // onOpenSchedule se mantiene en la interfaz para retomar ScheduleModal (ver rama archive/schedule-modal, issue #18).
@@ -50,6 +58,12 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
+    const turnstileToken = String(form.get('cf-turnstile-response') ?? '');
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setErrorMessage(TURNSTILE_PENDING);
+      setStatus('error');
+      return;
+    }
     setStatus('submitting');
     setErrorMessage('');
     try {
@@ -59,14 +73,21 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
         body: JSON.stringify({
           ...formData,
           website: form.get('website') ?? '',
-          turnstileToken: form.get('cf-turnstile-response') ?? '',
+          turnstileToken,
         }),
       });
-      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
-      if (!res.ok || !out.ok) throw new Error(out.error || 'unknown');
+      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; fields?: string[] };
+      if (!res.ok || !out.ok) {
+        if (out.error === 'validation' && out.fields?.length) {
+          const fields = out.fields.map((f) => FIELD_LABELS[f] ?? f).join(', ');
+          throw new Error(`fields:Revisa estos campos: ${fields}.`);
+        }
+        throw new Error(out.error || 'unknown');
+      }
       setStatus('success');
     } catch (err) {
-      setErrorMessage(ERROR_MESSAGES[(err as Error).message] ?? DEFAULT_ERROR);
+      const msg = (err as Error).message;
+      setErrorMessage(msg.startsWith('fields:') ? msg.slice(7) : ERROR_MESSAGES[msg] ?? DEFAULT_ERROR);
       setStatus('error');
       window.turnstile?.reset();
     }
