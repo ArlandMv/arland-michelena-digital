@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 01:20 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 02:40 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -35,3 +35,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [015](015-rama-first-design.md) | Rama first-design obsoleta | #17 | baja | Esperando decisión de Arland |
 | [016](016-agenda-reuniones.md) | Agenda de reuniones (Calendly / Cal.com / Google Calendar) | #24 | media | Propuesta — decisión de Arland |
 | [017](017-turnstile-y-secrets.md) | Activación del formulario: Turnstile, secrets y variable de build | — | alta | Implementado |
+| [018](018-etiquetas-espanol.md) | Etiquetas de sección en inglés | #32 | media | Implementada (Ciclo 03) |

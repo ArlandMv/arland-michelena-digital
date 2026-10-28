@@ -2,7 +2,7 @@ import { ServiceItem, ProjectCase, CapabilityCategory, ProcessPhase, ProofItem }
 
 export const HERO_DATA = {
   name: 'ARLAND',
-  title: 'Full-Stack & AI Engineer',
+  title: 'Ingeniero Full-Stack e IA',
   location: 'Santiago, Chile',
   coordinates: '-33.4489, -70.6693',
   timezone: 'SCL / UTC-3',
@@ -18,21 +18,21 @@ export const SERVICES_DATA: ServiceItem[] = [
   {
     id: 'deployment-infra',
     number: '01',
-    title: 'Deployment & Infrastructure',
+    title: 'Despliegue e infraestructura',
     description: 'Despliegue y operación de aplicaciones utilizando Docker, VPS, Coolify, CI/CD e infraestructura cloud adecuada para garantizar continuidad operacional.',
     technologies: ['Docker', 'VPS', 'Coolify', 'CI/CD', 'Nginx / Cloudflare']
   },
   {
     id: 'product-development',
     number: '02',
-    title: 'Product Development',
+    title: 'Desarrollo de producto',
     description: 'Aplicaciones web y herramientas internas de extremo a extremo, cubriendo frontend reactivo, APIs backend robustas, persistencia y servicios de terceros.',
     technologies: ['Angular', 'Nuxt', 'Next.js', 'Spring Boot', 'NestJS', 'Node.js']
   },
   {
     id: 'ai-automation',
     number: '03',
-    title: 'AI & Automation',
+    title: 'IA y automatización',
     description: 'Implementación práctica de agentes de IA, arquitecturas RAG, integraciones de LLMs y automatización de flujos con Python y n8n orientados a resolver procesos de negocio concretos.',
     technologies: ['RAG', 'AI Agents', 'LLM APIs', 'Python', 'n8n', 'Vector DB']
   }
@@ -41,7 +41,7 @@ export const SERVICES_DATA: ServiceItem[] = [
 export const PROJECTS_DATA: ProjectCase[] = [
   {
     id: 'huly-self-hosted',
-    category: 'DEPLOYMENT / INFRASTRUCTURE',
+    category: 'DESPLIEGUE / INFRAESTRUCTURA',
     badgeType: 'default',
     title: 'Huly self-hosted para continuidad operacional',
     description: 'Despliegue integral de entorno colaborativo Huly self-hosted en servidor VPS dedicado para la agencia OQO, asegurando continuidad operativa y privacidad de datos.',
@@ -51,7 +51,7 @@ export const PROJECTS_DATA: ProjectCase[] = [
   },
   {
     id: 'site-optimization',
-    category: 'WEB / TECHNICAL SEO',
+    category: 'WEB / SEO TÉCNICO',
     badgeType: 'default',
     title: 'Optimización técnica de sitios y ecommerce',
     description: 'Auditoría, resolución de cuellos de botella estructurales y optimización técnica para tres plataformas y ecosistemas distintos en producción.',
@@ -66,7 +66,7 @@ export const PROJECTS_DATA: ProjectCase[] = [
   },
   {
     id: 'ai-ticket-system',
-    category: 'AI / INTERNAL SYSTEMS',
+    category: 'IA / SISTEMAS INTERNOS',
     badgeType: 'development',
     title: 'Sistema de tickets con clasificación asistida por IA',
     description: 'Plataforma interna para gestión de solicitudes y triaje automatizado con clasificación contextual para derivación inteligente de incidentes técnicos.',
@@ -91,25 +91,25 @@ export const CAPABILITIES_DATA: CapabilityCategory[] = [
   },
   {
     id: 'data',
-    title: 'Data & Persistence',
+    title: 'Datos y persistencia',
     iconName: 'database',
     tools: ['PostgreSQL', 'MySQL', 'Cassandra']
   },
   {
     id: 'ai',
-    title: 'AI & Automation',
+    title: 'IA y automatización',
     iconName: 'neurology',
     tools: ['RAG', 'LLM integrations', 'AI agents', 'MCP (Model Context Protocol)', 'Ollama', 'LibreChat', 'n8n', 'Pydantic']
   },
   {
     id: 'infra',
-    title: 'Infrastructure',
+    title: 'Infraestructura',
     iconName: 'terminal',
     tools: ['Docker', 'Coolify', 'CI/CD', 'CDNs', 'Linux VPS']
   },
   {
     id: 'integrations',
-    title: 'Integrations & APIs',
+    title: 'Integraciones y APIs',
     iconName: 'sync_alt',
     tools: ['REST', 'SOAP', 'GraphQL', 'Meta APIs', 'Salesforce APIs']
   }
@@ -120,28 +120,28 @@ export const PROCESS_DATA: ProcessPhase[] = [
     id: 'phase-01',
     phaseCode: 'PHASE_01',
     percentage: '[ 25% ]',
-    title: 'UNDERSTAND',
+    title: 'ENTENDER',
     description: 'Entender el problema de raíz, procesos vigentes, restricciones operativas y sistemas existentes.'
   },
   {
     id: 'phase-02',
     phaseCode: 'PHASE_02',
     percentage: '[ 50% ]',
-    title: 'DESIGN',
+    title: 'DISEÑAR',
     description: 'Definir arquitectura técnica, integraciones, alcance y la solución más pequeña y efectiva posible.'
   },
   {
     id: 'phase-03',
     phaseCode: 'PHASE_03',
     percentage: '[ 75% ]',
-    title: 'BUILD',
+    title: 'CONSTRUIR',
     description: 'Implementación incremental, pruebas y conexión controlada de los sistemas necesarios.'
   },
   {
     id: 'phase-04',
     phaseCode: 'PHASE_04',
     percentage: '[ 100% ]',
-    title: 'SHIP & ITERATE',
+    title: 'ENTREGAR E ITERAR',
     description: 'Despliegue a producción, validación en vivo, monitoreo y mejoras basadas en datos.'
   }
 ];
@@ -156,7 +156,7 @@ export const PROOF_DATA: ProofItem[] = [
   {
     tag: 'TRAYECTORIA',
     title: 'Sector Bancario',
-    subtitle: 'Full-Stack Engineer',
+    subtitle: 'Ingeniero Full-Stack',
     detail: 'Microservicios Spring Boot & Angular'
   },
   {

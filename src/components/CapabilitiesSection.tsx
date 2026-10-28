@@ -31,7 +31,7 @@ export const CapabilitiesSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col gap-1.5 max-w-3xl">
           <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#70402D] tracking-wider font-semibold uppercase">
-            03 / CAPABILITIES
+            03 / CAPACIDADES
           </span>
           <h2 className="font-['IBM_Plex_Sans'] text-3xl sm:text-4xl lg:text-[36px] text-[#171619] tracking-tight font-medium">
             Capacidades a través del stack.

@@ -16,7 +16,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenSchedule }
         {/* Section Header */}
         <div className="flex flex-col gap-1.5 max-w-3xl">
           <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] tracking-wider font-semibold uppercase">
-            04 / PROCESS
+            04 / PROCESO
           </span>
           <h2 className="font-['IBM_Plex_Sans'] text-3xl sm:text-4xl lg:text-[36px] text-[#F4F1ED] tracking-tight font-medium">
             Del problema al sistema desplegado.
