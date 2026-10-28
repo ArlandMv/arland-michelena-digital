@@ -25,7 +25,7 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [005](005-ci-ramas.md) | CI escuchando `develop` | #7 | media | Resuelto en `dev`; llega a `main` con el PR `dev` → `main` |
 | [006](006-cabeceras-seguridad.md) | Cabeceras de seguridad y CSP | #8 | media | Propuesta |
 | [007](007-robots-sitemap.md) | robots.txt y sitemap.xml | #9 | media | Implementada (Ciclo 06) |
-| [008](008-seo-og.md) | Metadatos OG, canonical y favicon | #10 | media | Propuesta |
+| [008](008-seo-og.md) | Metadatos OG, canonical y favicon | #10 | media | Parcial (Ciclo 10): canonical, og:url y og:image; faltan favicon y JSON-LD |
 | [009](009-logo-roto.md) | Logo alojado en googleusercontent | #11 | alta | Implementada (Ciclo 01) |
 | [010](010-fuentes.md) | Fuente Material Symbols de ~3,9 MB | #12 | alta | Implementada (Ciclo 02) |
 | [011](011-imagen-pesada.md) | logo-1536.png de 1,9 MB | #13 | baja | Implementada (Ciclo 06) |
@@ -38,3 +38,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [018](018-etiquetas-espanol.md) | Etiquetas de sección en inglés | #32 | media | Implementada (Ciclo 03) |
 | [019](019-schedule-modal-honesto.md) | ScheduleModal simulaba reservas | #4 | alta | Implementada (Ciclo 04) |
 | [020](020-formulario-punta-a-punta.md) | Formulario de punta a punta: errores JSON y pruebas del endpoint | #3, #5, #33 | alta | Implementada (Ciclo 08) |
+| [021](021-pruebas-movil-a11y-seo.md) | Pruebas de móvil, navegación, accesibilidad, consola, recursos y SEO | #34, #35 | media | Implementada (Ciclo 10) |

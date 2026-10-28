@@ -1,34 +1,20 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Digital Presence Portfolio E2E Tests', () => {
-  test('should load the home page and render hero section correctly', async ({ page }) => {
+test.describe('Portada', () => {
+  test('carga la portada y muestra el hero', async ({ page }) => {
     await page.goto('/');
-
-    // Check document title
     await expect(page).toHaveTitle(/Arland/i);
-
-    // Verify main header or hero section is visible
-    const mainHeading = page.locator('h1').first();
-    await expect(mainHeading).toBeVisible();
+    await expect(page.locator('h1').first()).toBeVisible();
   });
 
-  test('should open and close the schedule call modal', async ({ page }) => {
+  // #34: reemplaza la prueba obsoleta que buscaba un botón "schedule" que ya no existe
+  // (y pasaba sin verificar nada). El modal hoy propone el horario por WhatsApp (#4).
+  test('el modal de agenda abre y cierra con su botón', async ({ page }) => {
     await page.goto('/');
-
-    // Find and click schedule button
-    const scheduleBtn = page.getByRole('button', { name: /schedule/i }).first();
-    if (await scheduleBtn.isVisible()) {
-      await scheduleBtn.click();
-      
-      // Verify modal opens
-      const modalHeader = page.getByText(/discovery call/i).first();
-      await expect(modalHeader).toBeVisible();
-
-      // Close modal
-      const closeBtn = page.locator('button').filter({ has: page.locator('svg') }).first();
-      if (await closeBtn.isVisible()) {
-        await closeBtn.click();
-      }
-    }
+    await page.click('#header-profile-icon');
+    const dialog = page.locator('#schedule-modal-dialog');
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', { name: 'Cerrar modal' }).click();
+    await expect(dialog).toBeHidden();
   });
 });
