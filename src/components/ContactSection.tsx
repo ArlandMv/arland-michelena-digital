@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
-import { MessageCircle, CheckCircle, Send, Copy, ExternalLink } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { MessageCircle, CheckCircle, Send, Copy, ExternalLink, Loader2, AlertTriangle } from 'lucide-react';
 import { ContactFormData } from '../types';
 import { WHATSAPP_URL } from '../config/contact';
 
 interface ContactSectionProps {
   onOpenSchedule: () => void;
 }
+
+// Site key pública de Cloudflare Turnstile (no es secreta). Ver .env.example y .docs/003-anti-spam.md.
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '';
+
+declare global {
+  interface Window {
+    turnstile?: { reset: (widget?: string) => void };
+  }
+}
+
+const ERROR_MESSAGES: Record<string, string> = {
+  validation: 'Revisa los campos: nombre, email válido y un mensaje de al menos 10 caracteres.',
+  turnstile: 'No pudimos verificar que no eres un bot. Recarga la página e inténtalo de nuevo.',
+  rate_limited: 'Demasiados envíos seguidos. Espera unos minutos e inténtalo de nuevo.',
+};
+const DEFAULT_ERROR = 'No se pudo enviar tu mensaje. Inténtalo de nuevo o escríbeme por WhatsApp o email.';
 
 // onOpenSchedule se mantiene en la interfaz para retomar ScheduleModal (ver rama archive/schedule-modal, issue #18).
 export const ContactSection: React.FC<ContactSectionProps> = () => {
@@ -17,15 +33,43 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     message: ''
   });
 
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || document.getElementById('cf-turnstile-script')) return;
+    const script = document.createElement('script');
+    script.id = 'cf-turnstile-script';
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = new FormData(e.currentTarget);
     setStatus('submitting');
-    setTimeout(() => {
+    setErrorMessage('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          website: form.get('website') ?? '',
+          turnstileToken: form.get('cf-turnstile-response') ?? '',
+        }),
+      });
+      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (!res.ok || !out.ok) throw new Error(out.error || 'unknown');
       setStatus('success');
-    }, 800);
+    } catch (err) {
+      setErrorMessage(ERROR_MESSAGES[(err as Error).message] ?? DEFAULT_ERROR);
+      setStatus('error');
+      window.turnstile?.reset();
+    }
   };
 
   const handleCopyEmail = () => {
@@ -91,7 +135,8 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
               <form
                 id="contact-form"
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-5"
+                className="relative flex flex-col gap-5"
+                aria-busy={status === 'submitting'}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-1.5">
@@ -188,6 +233,27 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                   />
                 </div>
 
+                {/* Honeypot anti-spam: oculto para personas, los bots suelen llenarlo. */}
+                <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                  <label htmlFor="contact-website">No llenar este campo</label>
+                  <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
+
+                {TURNSTILE_SITE_KEY && (
+                  <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" data-language="es" />
+                )}
+
+                {status === 'error' && (
+                  <div
+                    id="form-error-message"
+                    role="alert"
+                    className="flex items-start gap-2 p-3 rounded-[6px] border border-[#B66A43] bg-[#70402D]/20 text-[#F4F1ED] font-['IBM_Plex_Sans'] text-[14px]"
+                  >
+                    <AlertTriangle className="w-4 h-4 mt-0.5 text-[#D08A62] shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 <button
                   id="contact-submit-button"
                   type="submit"
@@ -195,7 +261,10 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#7A2E84] text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold text-[15px] rounded-[6px] border border-[#292930] hover:border-[#B66A43] hover:bg-[#67276B] transition-all cursor-pointer shadow-md disabled:opacity-50"
                 >
                   {status === 'submitting' ? (
-                    <span>Procesando...</span>
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                      <span>Enviando...</span>
+                    </>
                   ) : (
                     <>
                       <span>Enviar proyecto</span>
