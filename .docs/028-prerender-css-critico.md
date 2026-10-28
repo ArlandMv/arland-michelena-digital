@@ -1,7 +1,7 @@
 # 028 · Pre-render del HTML y CSS incrustado (primer pintado en móvil)
 
 - **Issue:** [#75](https://github.com/ArlandMv/arland-michelena-digital/issues/75)
-- **Prioridad:** media · **Estado:** En PR (Ciclo 18, 28-10-2026)
+- **Prioridad:** media · **Estado:** Implementada (Ciclo 18, 28-10-2026), en producción desde `a5de082`
 
 ## Problema
 Lighthouse móvil contra producción (28-10-2026, 09:58 hora de Chile): **87**, FCP 2,8 s, LCP 3,4 s, TBT 40 ms, CLS 0,013.
@@ -38,7 +38,26 @@ así que el HTML del servidor y el primer render del cliente coinciden.
 - Hidratación sin errores ni advertencias de React en Chromium (Pixel 7 y escritorio) y WebKit (iPhone 14) con `vite preview`.
 - WebKit muestra el aviso "preloaded but not used within a few seconds" para las 3 fuentes precargadas, porque el
   `load` ahora ocurre mucho antes; se verificó que cada fuente se descarga una sola vez y se usa. No es un error.
-- Lighthouse y la preview de Cloudflare de la rama: ver la página del Ciclo 18 en la bitácora.
+- E2E local: 254 pasan, 30 omitidas, 0 fallos. CI de [PR #76](https://github.com/ArlandMv/arland-michelena-digital/pull/76) y [PR #77](https://github.com/ArlandMv/arland-michelena-digital/pull/77) en verde.
+- Lighthouse móvil (3 corridas cada una, Chromium del box):
+
+| Dónde | Rendimiento | FCP | LCP |
+|---|---|---|---|
+| Producción antes (`254646c`) | 87 · 97 · 96 | 2,8 · 1,8 · 1,7 s | 3,4 · 2,4 · 2,6 s |
+| Preview de la rama (workers.dev) | 100 · 98 · 98 | 1,2 · 1,2 · 1,5 s | 1,6 · 2,3 · 2,2 s |
+| Producción después (`a5de082`) | 93 · 94 · 93 | 2,2 · 2,2 · 2,0 s | 2,8 · 2,8 · 2,9 s |
+
+  Producción es más estable (sin el 87), pero queda bajo la preview: el *render delay* del LCP es ~940 ms en
+  producción contra ~310 ms en la preview. La diferencia visible es el beacon de Web Analytics que Cloudflare inyecta
+  solo en el dominio propio (decisión pendiente de Arland, ver [026](026-turnstile-diferido.md)); queda para un ciclo siguiente.
+- Smoke de producción: 8/8 (incluye el chequeo nuevo del pre-render).
+
+## Incidente de deploy
+El build automático de `main` (`6b3cb37f`, 13:11 UTC) falló en "Cloning repository… error occurred while fetching
+repository", el mismo fallo de plataforma del Ciclo 16 ([027](027-favicon-jsonld.md)). Se relanzó con la API de
+Workers Builds (`POST /builds/triggers/{trigger}/builds`, `branch: main` y SHA completo); el build `a597b9e0` terminó
+en `success` y producción pasó a `a5de082`. El workflow de smoke de ese push había vencido su espera de 480 s y se
+volvió a ejecutar.
 
 ## Pendientes
 - Si el sitio crece a varias rutas, evaluar la alternativa 3 (SSG).

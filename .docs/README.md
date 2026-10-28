@@ -46,4 +46,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [025](025-lcp-hero-y-etiquetas.md) | Imagen LCP del hero en AVIF precargado y etiquetas decorativas en español | #62 | media | Implementada (Ciclo 14) |
 | [026](026-turnstile-diferido.md) | Turnstile diferido hasta acercarse al formulario y dns-prefetch del beacon | #65 | media | Implementada (Ciclo 15); auto-inyección del beacon: decisión de Arland |
 | [027](027-favicon-jsonld.md) | Favicon SVG + respaldos PNG/ICO, apple-touch-icon, manifest y JSON-LD Person/WebSite | #10 | media | Implementada (Ciclo 16), en producción desde el Ciclo 17 |
-| [028](028-prerender-css-critico.md) | Pre-render del HTML y CSS incrustado para el primer pintado móvil | #75 | media | En PR (Ciclo 18) |
+| [028](028-prerender-css-critico.md) | Pre-render del HTML y CSS incrustado para el primer pintado móvil | #75 | media | Implementada (Ciclo 18), en producción |
