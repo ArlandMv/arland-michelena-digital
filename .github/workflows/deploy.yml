@@ -1,9 +1,9 @@
 name: Continuous Deployment (CD)
 
+# Desactivado: producción la publica Cloudflare Workers Builds con wrangler.jsonc
+# (ver .docs/004-despliegue.md). Se conserva solo como respaldo manual.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:

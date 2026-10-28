@@ -3,11 +3,11 @@ name: Continuous Integration (CI)
 on:
   push:
     branches:
-      - develop
+      - dev
   pull_request:
     branches:
       - main
-      - develop
+      - dev
 
 jobs:
   lint-and-test:
