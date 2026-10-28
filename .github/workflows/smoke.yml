@@ -1,0 +1,65 @@
+name: Smoke test producción
+
+# Issue #36 · ver .docs/022-smoke-produccion.md
+# Corre después de cada push a main (espera a que Workers Builds publique ese commit)
+# y a mano desde la pestaña Actions. Si falla, el workflow queda en rojo y abre
+# (o comenta) un issue "Smoke test de producción falló".
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      esperar_deploy:
+        description: 'Esperar a que producción sirva el commit de main antes de probar'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: smoke-produccion
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Smoke test arlandstack.com
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run smoke test
+        env:
+          SMOKE_BASE_URL: https://arlandstack.com
+          SMOKE_EXPECTED_SHA: ${{ (github.event_name == 'push' || inputs.esperar_deploy) && github.sha || '' }}
+          SMOKE_WAIT_SECONDS: '480'
+        run: node scripts/smoke.mjs
+
+      - name: Notify failure (issue)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Smoke test de producción falló"
+          BODY="El smoke test contra https://arlandstack.com falló para el commit ${GITHUB_SHA::7} (evento: ${GITHUB_EVENT_NAME}).
+
+          Detalle y resumen por chequeo: ${RUN_URL}
+
+          Cierra este issue cuando el smoke vuelva a pasar. Ver .docs/022-smoke-produccion.md."
+          NUM=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number')
+          if [ -n "$NUM" ]; then
+            gh issue comment "$NUM" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$BODY"
+          fi

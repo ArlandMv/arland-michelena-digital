@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 05:05 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 06:00 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -12,6 +12,7 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 
 ## Estado general
 - El CI de GitHub (lint, build, E2E) pasa.
+- Después de cada push a `main`, el workflow **Smoke test producción** verifica arlandstack.com ([022](022-smoke-produccion.md)).
 - El check **Workers Builds** de Cloudflare pasa desde que `wrangler.jsonc` está versionado ([004](004-despliegue.md)).
 - La agenda simulada se reemplazó por WhatsApp ([002](002-agenda-whatsapp.md)); el formulario guarda los leads en Airtable con Turnstile, honeypot y rate-limit ([001](001-formulario-contacto.md), [020](020-formulario-punta-a-punta.md)).
 
@@ -39,3 +40,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [019](019-schedule-modal-honesto.md) | ScheduleModal simulaba reservas | #4 | alta | Implementada (Ciclo 04) |
 | [020](020-formulario-punta-a-punta.md) | Formulario de punta a punta: errores JSON y pruebas del endpoint | #3, #5, #33 | alta | Implementada (Ciclo 08) |
 | [021](021-pruebas-movil-a11y-seo.md) | Pruebas de móvil, navegación, accesibilidad, consola, recursos y SEO | #34, #35 | media | Implementada (Ciclo 10) |
+| [022](022-smoke-produccion.md) | Smoke test contra producción después de cada deploy | #36 | media | Implementada (Ciclo 11) |
