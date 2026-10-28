@@ -41,6 +41,9 @@ Las etiquetas decorativas del hero (`COORDINATES`, `LOCATION`, `STATUS`, `ACTIVE
 ## Resultados
 Ver el PR del Ciclo 14 para números finales (Lighthouse en preview y producción). La red del box es irregular (TTFB de 0,1 s a 3 s entre corridas), así que se corrieron varias pasadas y se reporta la mediana.
 
+## Ajuste de diseño de la tarjeta
+Con los textos en español (más largos), la fila `MARCA FACETADA COMPLETA // V-2025 · NÚCLEO_AMATISTA` se montaba sobre las etiquetas de esquina en móvil (ya pasaba antes: en móvil la fila quedaba cortada por el `aspect-square` + `overflow-hidden`). Se dejó la tarjeta cuadrada solo desde `sm` (`sm:aspect-square`), la fila con `flex-wrap` y `mb-3` para separarla de las etiquetas de esquina. Verificado con capturas en Pixel 7, iPhone 14 y escritorio 1440 px.
+
 ## Pendiente / ideas
-- En escritorio la fila `MARCA FACETADA COMPLETA // V-2025 · NÚCLEO_AMATISTA` queda muy pegada a las etiquetas de esquina inferiores, y en móvil se corta (ya pasaba antes con el texto en inglés). Ajuste de diseño menor para un ciclo próximo.
 - Prerenderizar el hero (SSG) para quitar el Load Delay del texto y de la imagen por completo.
+- El `<picture>` se inserta como HTML: si se cambian `srcset`/`sizes`, actualizar también el preload de `index.html` (la prueba `logo.spec.ts` falla si no coinciden).

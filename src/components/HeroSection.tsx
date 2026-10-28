@@ -164,7 +164,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
               setIsHovered(false);
               setMousePosition({ x: 0, y: 0 });
             }}
-            className="relative w-full max-w-lg aspect-square rounded-[8px] bg-[#141418] border border-[#292930] p-6 flex flex-col justify-between overflow-hidden group shadow-2xl transition-all duration-300 hover:border-[#7A2E84]"
+            className="relative w-full max-w-lg sm:aspect-square rounded-[8px] bg-[#141418] border border-[#292930] p-6 flex flex-col justify-between overflow-hidden group shadow-2xl transition-all duration-300 hover:border-[#7A2E84]"
           >
             {/* Structural corner registration markers */}
             <div className="absolute top-3 left-3 font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider select-none flex items-center gap-1">
@@ -212,7 +212,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
             </div>
 
             {/* Container Spec Readout */}
-            <div className="relative z-10 w-full pt-3 border-t border-[#292930] flex items-center justify-between text-[#A8A6AD] font-['JetBrains_Mono'] text-[11px]">
+            <div className="relative z-10 w-full pt-3 mb-3 border-t border-[#292930] flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[#A8A6AD] font-['JetBrains_Mono'] text-[11px]">
               <span className="tracking-wider">MARCA FACETADA COMPLETA // V-2025</span>
               <span className="text-[#D38A5F] font-['IBM_Plex_Mono'] font-medium tracking-wider">
                 NÚCLEO_AMATISTA
