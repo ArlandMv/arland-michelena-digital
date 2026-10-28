@@ -11,7 +11,7 @@ export const ServicesSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col gap-1.5 max-w-3xl">
           <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#70402D] tracking-wider font-semibold uppercase">
-            01 / WHAT I BUILD
+            01 / QUÉ CONSTRUYO
           </span>
           <h2 className="font-['IBM_Plex_Sans'] text-3xl sm:text-4xl lg:text-[40px] text-[#171619] tracking-tight font-medium leading-tight">
             De una necesidad técnica a un sistema funcionando.

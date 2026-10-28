@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
               ARLAND MICHELENA VILLEGAS
             </span>
             <span className="text-[#A8A6AD]">·</span>
-            <span className="text-[#d3c1cf]">Full-Stack & AI Engineer</span>
+            <span className="text-[#d3c1cf]">Ingeniero Full-Stack e IA</span>
             <span className="text-[#A8A6AD]">·</span>
             <span className="font-['JetBrains_Mono'] text-[12px] text-[#A8A6AD]">
               Santiago, Chile

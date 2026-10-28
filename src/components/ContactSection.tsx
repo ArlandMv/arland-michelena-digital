@@ -87,7 +87,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
         {/* Section Header */}
         <div className="flex flex-col gap-1.5 max-w-3xl">
           <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] tracking-wider font-semibold uppercase">
-            06 / CONTACT
+            06 / CONTACTO
           </span>
           <h2 className="font-['IBM_Plex_Sans'] text-3xl sm:text-4xl lg:text-[36px] text-[#F4F1ED] tracking-tight font-medium">
             ¿Tienes un sistema que necesitas construir, integrar o desplegar?
@@ -322,7 +322,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
               <span className="text-[#F4F1ED] font-['IBM_Plex_Sans'] font-semibold text-[16px]">
                 Arland Michelena Villegas
               </span>
-              <span>Ingeniero de Software · Full-Stack & AI</span>
+              <span>Ingeniero de Software · Full-Stack e IA</span>
               <span>Santiago, Chile · UTC-3</span>
 
               <div className="pt-3 border-t border-[#292930] flex items-center justify-between text-[12px]">
