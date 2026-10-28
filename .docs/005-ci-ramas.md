@@ -1,7 +1,7 @@
 # 005 — CI escuchando `develop`
 
 - **Issue:** #7 · **Prioridad media**
-- **Estado:** En PR: [https://github.com/ArlandMv/arland-michelena-digital/pull/2](https://github.com/ArlandMv/arland-michelena-digital/pull/2)
+- **Estado:** Resuelto en `dev` (triggers `main`/`dev`); llega a `main` con el PR `dev` → `main`. El PR #2 queda superado.
 
 ## Problema y evidencia
 `ci.yml` en main usa `push: develop` (rama inexistente). Issue: [https://github.com/ArlandMv/arland-michelena-digital/issues/7](https://github.com/ArlandMv/arland-michelena-digital/issues/7).
