@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 04:45 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 05:05 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -31,7 +31,7 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [011](011-imagen-pesada.md) | logo-1536.png de 1,9 MB | #13 | baja | Implementada (Ciclo 06) |
 | [012](012-contraste.md) | Contraste de #B66A43 en texto pequeño | #14 | media | Implementada (Ciclo 05) |
 | [013](013-links-footer.md) | Links genéricos en el footer | #15 | media | Implementada (Ciclo 05) |
-| [014](014-limpieza-aistudio.md) | Restos de AI Studio | #16 | baja | Propuesta |
+| [014](014-limpieza-aistudio.md) | Restos de AI Studio | #16 | baja | Implementada (Ciclo 09); `metadata.json` y `legacy.html` esperan decisión de Arland |
 | [015](015-rama-first-design.md) | Rama first-design obsoleta | #17 | baja | Esperando decisión de Arland |
 | [016](016-agenda-reuniones.md) | Agenda de reuniones (Calendly / Cal.com / Google Calendar) | #24 | media | Propuesta — decisión de Arland |
 | [017](017-turnstile-y-secrets.md) | Activación del formulario: Turnstile, secrets y variable de build | — | alta | Implementado |
