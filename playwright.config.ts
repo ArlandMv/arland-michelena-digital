@@ -16,6 +16,11 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      // #34: la suite completa también corre en móvil (Pixel 7 usa Chromium, sin navegadores extra en CI).
+      name: 'movil',
+      use: { ...devices['Pixel 7'] },
+    },
   ],
   webServer: {
     command: 'npm run dev',
