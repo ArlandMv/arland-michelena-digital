@@ -86,7 +86,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex flex-col gap-10 lg:gap-14">
         {/* Section Header */}
         <div className="flex flex-col gap-1.5 max-w-3xl">
-          <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] tracking-wider font-semibold uppercase">
+          <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#D38A5F] tracking-wider font-semibold uppercase">
             06 / CONTACTO
           </span>
           <h2 className="font-['IBM_Plex_Sans'] text-3xl sm:text-4xl lg:text-[36px] text-[#F4F1ED] tracking-tight font-medium">
@@ -144,7 +144,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                       htmlFor="contact-name"
                       className="font-['IBM_Plex_Mono'] text-[11px] text-[#A8A6AD] uppercase tracking-wider font-medium"
                     >
-                      Nombre <span className="text-[#B66A43]">*</span>
+                      Nombre <span className="text-[#D38A5F]">*</span>
                     </label>
                     <input
                       id="contact-name"
@@ -162,7 +162,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                       htmlFor="contact-email"
                       className="font-['IBM_Plex_Mono'] text-[11px] text-[#A8A6AD] uppercase tracking-wider font-medium"
                     >
-                      Email <span className="text-[#B66A43]">*</span>
+                      Email <span className="text-[#D38A5F]">*</span>
                     </label>
                     <input
                       id="contact-email"
@@ -220,7 +220,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     htmlFor="contact-message"
                     className="font-['IBM_Plex_Mono'] text-[11px] text-[#A8A6AD] uppercase tracking-wider font-medium"
                   >
-                    ¿Qué necesitas? <span className="text-[#B66A43]">*</span>
+                    ¿Qué necesitas? <span className="text-[#D38A5F]">*</span>
                   </label>
                   <textarea
                     id="contact-message"
@@ -280,7 +280,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Card 1: Direct Session */}
             <div className="bg-[#141418] border border-[#292930] rounded-[8px] p-6 lg:p-8 flex flex-col gap-4 shadow-lg">
-              <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] tracking-wider font-semibold uppercase">
+              <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#D38A5F] tracking-wider font-semibold uppercase">
                 SESIÓN TÉCNICA
               </span>
 
@@ -301,7 +301,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-[#1B1B21] text-[#F4F1ED] border border-[#292930] rounded-[6px] font-['IBM_Plex_Sans'] font-semibold text-[15px] hover:border-[#B66A43] hover:text-[#D38A5F] hover:bg-[#202026] transition-all cursor-pointer shadow-sm"
                   >
-                    <MessageCircle className="w-5 h-5 text-[#B66A43]" />
+                    <MessageCircle className="w-5 h-5 text-[#D38A5F]" />
                     <span>Conversemos por WhatsApp</span>
                   </a>
                 ) : (
@@ -310,7 +310,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                     href="#contact-form"
                     className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-[#1B1B21] text-[#F4F1ED] border border-[#292930] rounded-[6px] font-['IBM_Plex_Sans'] font-semibold text-[15px] hover:border-[#B66A43] hover:text-[#D38A5F] hover:bg-[#202026] transition-all cursor-pointer shadow-sm"
                   >
-                    <MessageCircle className="w-5 h-5 text-[#B66A43]" />
+                    <MessageCircle className="w-5 h-5 text-[#D38A5F]" />
                     <span>Escríbeme por el formulario</span>
                   </a>
                 )}
@@ -330,7 +330,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                   href="https://arlandstack.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#B66A43] hover:underline font-['IBM_Plex_Mono'] flex items-center gap-1"
+                  className="text-[#D38A5F] hover:underline font-['IBM_Plex_Mono'] flex items-center gap-1"
                 >
                   <span>arlandstack.com</span>
                   <ExternalLink className="w-3.5 h-3.5" />

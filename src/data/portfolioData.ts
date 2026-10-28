@@ -172,3 +172,9 @@ export const PROOF_DATA: ProofItem[] = [
     detail: 'Francés (Profesional) · Remoto Global'
   }
 ];
+
+// Perfiles públicos de Arland (usados en el footer y verificados por e2e/links-footer.spec.ts).
+export const SOCIAL_LINKS = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/arland-michelena' },
+  { label: 'GitHub', href: 'https://github.com/ArlandMv' },
+] as const;

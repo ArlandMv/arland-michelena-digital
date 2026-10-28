@@ -64,7 +64,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
             className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#1B1B21] border border-[#292930]"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#B66A43]" />
-            <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] tracking-widest uppercase font-medium">
+            <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#D38A5F] tracking-widest uppercase font-medium">
               FULL-STACK · IA · AUTOMATIZACIÓN · INFRAESTRUCTURA
             </span>
           </div>
@@ -133,7 +133,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
 
             <div>
               <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">STATUS</span>
-              <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#B66A43] flex items-center gap-1 font-medium">
+              <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#D38A5F] flex items-center gap-1 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B66A43] animate-pulse" />
                 ACTIVE
               </span>
@@ -205,7 +205,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
             {/* Container Spec Readout */}
             <div className="relative z-10 w-full pt-3 border-t border-[#292930] flex items-center justify-between text-[#A8A6AD] font-['JetBrains_Mono'] text-[11px]">
               <span className="tracking-wider">FULL FACETED MARK // V-2025</span>
-              <span className="text-[#B66A43] font-['IBM_Plex_Mono'] font-medium tracking-wider">
+              <span className="text-[#D38A5F] font-['IBM_Plex_Mono'] font-medium tracking-wider">
                 PURPLE_AMETHYST_CORE
               </span>
             </div>
