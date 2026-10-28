@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, User, ArrowUpRight } from 'lucide-react';
+import { WHATSAPP_URL } from '../config/contact';
 import { HERO_DATA } from '../data/portfolioData';
 
 interface NavbarProps {
@@ -63,8 +64,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
             <div className="relative h-8 w-8 rounded bg-[#1B1B21] border border-[#292930] p-1 flex items-center justify-center overflow-hidden group-hover:border-[#B66A43] transition-colors">
               <img
                 src={HERO_DATA.logoUrl}
+                srcSet={`${HERO_DATA.logoUrl} 1x, /brand/logo-mark-128.webp 2x`}
+                width={32}
+                height={32}
                 alt="ARLAND Logo"
-                className="h-full w-full object-contain"
+                className="relative z-10 h-full w-full object-contain"
                 onError={(e) => {
                   // Fallback if network blocked
                   (e.target as HTMLElement).style.display = 'none';
@@ -123,10 +127,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
 
           <button
             id="header-profile-icon"
-            onClick={onOpenSchedule}
-            title="Agendar sesión técnica"
-            aria-label="Agendar sesión técnica"
-            className="w-8 h-8 rounded-full bg-[#7A2E84] hover:bg-[#B66A43] transition-colors flex items-center justify-center text-[#F4F1ED] focus:outline-none cursor-pointer"
+            type="button"
+            // Agenda deshabilitada hasta implementar agenda real (ver .docs/016-agenda-reuniones.md).
+            // Antes: onClick={onOpenSchedule}
+            disabled
+            aria-disabled="true"
+            title="Agenda en desarrollo"
+            aria-label="Agenda en desarrollo"
+            className="w-8 h-8 rounded-full bg-[#7A2E84] flex items-center justify-center text-[#F4F1ED] focus:outline-none cursor-not-allowed opacity-50"
           >
             <User className="w-4 h-4" />
           </button>
@@ -171,16 +179,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
             >
               Hablemos de tu proyecto
             </a>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenSchedule();
-              }}
+            {/* Antes abría ScheduleModal (onOpenSchedule); ahora WhatsApp. Ver .docs/016-agenda-reuniones.md */}
+            <a
+              id="mobile-whatsapp-cta"
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center py-2 bg-[#1B1B21] hover:bg-[#292930] text-[#B66A43] text-sm font-semibold rounded-[6px] border border-[#292930] flex items-center justify-center gap-1.5"
             >
-              <span>Agendar llamada 30 min</span>
+              <span>Conversemos por WhatsApp</span>
               <ArrowUpRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
         </div>
       )}

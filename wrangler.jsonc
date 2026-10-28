@@ -4,11 +4,22 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "arland-michelena-digital",
   "compatibility_date": "2026-10-01",
+  // Worker para /api/* (formulario de contacto). El resto lo sirven los assets.
+  "main": "worker/index.ts",
   "build": {
     "command": "npm run build"
   },
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  // Variables NO secretas (los IDs de Airtable no dan acceso sin token).
+  // Secrets AIRTABLE_TOKEN y TURNSTILE_SECRET_KEY: `wrangler secret put` o dashboard, nunca aquí.
+  "vars": {
+    "AIRTABLE_BASE_ID": "appP7fO5tHH0hmYal",
+    "AIRTABLE_TABLE_ID": "tblcCzdpPS1DHa7m8"
+  },
+  "observability": { "enabled": true }
 }
