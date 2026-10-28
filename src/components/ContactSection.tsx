@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, CheckCircle, Send, Copy, ExternalLink, Loader2, AlertTriangle } from 'lucide-react';
 import { ContactFormData } from '../types';
 import { WHATSAPP_URL } from '../config/contact';
@@ -10,10 +10,46 @@ interface ContactSectionProps {
 // Site key pública de Cloudflare Turnstile (no es secreta). Ver .env.example y .docs/003-anti-spam.md.
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '';
 
+// Ciclo 15 (#65): el script de Turnstile ya no se descarga al abrir la página. Se carga en modo
+// explícito cuando el formulario se acerca a la pantalla o al primer foco/toque en él.
+// Ver .docs/026-turnstile-diferido.md.
+const TURNSTILE_SCRIPT_ID = 'cf-turnstile-script';
+const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+// Margen generoso: el widget empieza a cargar ~1,5 pantallas antes de que el formulario sea visible.
+const TURNSTILE_ROOT_MARGIN = '1200px 0px';
+
+interface TurnstileApi {
+  render: (el: HTMLElement, opts: Record<string, unknown>) => string | undefined;
+  reset: (widget?: string) => void;
+  remove: (widget: string) => void;
+}
+
 declare global {
   interface Window {
-    turnstile?: { reset: (widget?: string) => void };
+    turnstile?: TurnstileApi;
   }
+}
+
+let turnstilePromise: Promise<TurnstileApi> | null = null;
+
+/** Inserta api.js una sola vez y resuelve cuando window.turnstile está disponible. */
+function loadTurnstile(): Promise<TurnstileApi> {
+  if (window.turnstile) return Promise.resolve(window.turnstile);
+  if (turnstilePromise) return turnstilePromise;
+  turnstilePromise = new Promise<TurnstileApi>((resolve, reject) => {
+    const script = document.createElement('script');
+    script.id = TURNSTILE_SCRIPT_ID;
+    script.src = TURNSTILE_SRC;
+    script.async = true;
+    script.onload = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error('turnstile')));
+    script.onerror = () => {
+      turnstilePromise = null;
+      script.remove();
+      reject(new Error('turnstile'));
+    };
+    document.head.appendChild(script);
+  });
+  return turnstilePromise;
 }
 
 const ERROR_MESSAGES: Record<string, string> = {
@@ -45,15 +81,52 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | undefined>(undefined);
+  const showForm = status !== 'success';
+
   useEffect(() => {
-    if (!TURNSTILE_SITE_KEY || document.getElementById('cf-turnstile-script')) return;
-    const script = document.createElement('script');
-    script.id = 'cf-turnstile-script';
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  }, []);
+    if (!TURNSTILE_SITE_KEY || !showForm) return;
+    let cancelled = false;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      observer?.disconnect();
+      loadTurnstile()
+        .then((ts) => {
+          const el = widgetRef.current;
+          if (cancelled || !el || widgetIdRef.current) return;
+          widgetIdRef.current = ts.render(el, { sitekey: TURNSTILE_SITE_KEY, theme: 'dark', language: 'es' });
+        })
+        .catch(() => {
+          // Sin script no hay token: el envío muestra TURNSTILE_PENDING y el usuario puede reintentar o usar WhatsApp.
+          started = false;
+        });
+    };
+    const observer =
+      'IntersectionObserver' in window
+        ? new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && start(), {
+            rootMargin: TURNSTILE_ROOT_MARGIN,
+          })
+        : null;
+    if (observer && sectionRef.current) observer.observe(sectionRef.current);
+    else start();
+    const form = formRef.current;
+    const events = ['focusin', 'pointerdown', 'touchstart'] as const;
+    events.forEach((ev) => form?.addEventListener(ev, start, { passive: true }));
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+      events.forEach((ev) => form?.removeEventListener(ev, start));
+      if (widgetIdRef.current) {
+        window.turnstile?.remove(widgetIdRef.current);
+        widgetIdRef.current = undefined;
+      }
+    };
+  }, [showForm]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,7 +162,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
       const msg = (err as Error).message;
       setErrorMessage(msg.startsWith('fields:') ? msg.slice(7) : ERROR_MESSAGES[msg] ?? DEFAULT_ERROR);
       setStatus('error');
-      window.turnstile?.reset();
+      if (widgetIdRef.current) window.turnstile?.reset(widgetIdRef.current);
     }
   };
 
@@ -101,6 +174,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="contacto"
       className="w-full bg-[#0D0D0F] text-[#F4F1ED] py-20 lg:py-28"
     >
@@ -155,6 +229,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
             ) : (
               <form
                 id="contact-form"
+                ref={formRef}
                 onSubmit={handleSubmit}
                 className="relative flex flex-col gap-5"
                 aria-busy={status === 'submitting'}
@@ -261,7 +336,8 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                 </div>
 
                 {TURNSTILE_SITE_KEY && (
-                  <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" data-language="es" />
+                  // min-h reserva el alto del widget (65 px) para que su aparición diferida no mueva el layout.
+                  <div id="turnstile-widget" ref={widgetRef} className="min-h-[65px]" />
                 )}
 
                 {status === 'error' && (
