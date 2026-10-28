@@ -40,7 +40,15 @@ function rateLimited(ip: string): boolean {
 const json = (status: number, body: Record<string, unknown>) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+      'cache-control': 'no-store',
+      // #8: cabeceras de seguridad también en las respuestas del Worker.
+      'x-content-type-options': 'nosniff',
+      'strict-transport-security': 'max-age=31536000; includeSubDomains',
+      'referrer-policy': 'strict-origin-when-cross-origin',
+      'content-security-policy': "default-src 'none'; frame-ancestors 'none'",
+    },
   });
 
 export function validate(input: Record<string, unknown>) {
