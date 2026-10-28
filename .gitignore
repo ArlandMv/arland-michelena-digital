@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Secrets locales de wrangler dev
+.dev.vars*
+playwright-report/
+test-results/
