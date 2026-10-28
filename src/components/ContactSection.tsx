@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
-import { Calendar, CheckCircle, Send, Copy, ExternalLink } from 'lucide-react';
+import { MessageCircle, CheckCircle, Send, Copy, ExternalLink } from 'lucide-react';
 import { ContactFormData } from '../types';
 
 interface ContactSectionProps {
   onOpenSchedule: () => void;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenSchedule }) => {
+// Número en formato internacional sin '+' ni espacios (p. ej. 569XXXXXXXX). Ver .env.example.
+const WHATSAPP_NUMBER = (import.meta.env.VITE_WHATSAPP_NUMBER ?? '').replace(/\D/g, '');
+const WHATSAPP_MESSAGE =
+  'Hola Arland, vi tu portafolio en arlandstack.com y me gustaría conversar sobre un proyecto. Mi nombre es ___ y mi empresa es ___.';
+const WHATSAPP_URL = WHATSAPP_NUMBER
+  ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+  : '';
+
+// onOpenSchedule se mantiene en la interfaz para retomar ScheduleModal (ver rama archive/schedule-modal, issue #18).
+export const ContactSection: React.FC<ContactSectionProps> = () => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -218,18 +227,31 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenSchedule }
               </h3>
 
               <p className="font-['IBM_Plex_Sans'] text-[15px] leading-[24px] text-[#A8A6AD]">
-                Si prefieres explicar tu caso directamente, podemos agendar una sesión de 30 minutos para evaluar el alcance, los cuellos de botella y la viabilidad del proyecto.
+                Si prefieres explicar tu caso directamente, escríbeme por WhatsApp: el mensaje llega a mi teléfono y coordinamos una conversación para evaluar el alcance, los cuellos de botella y la viabilidad del proyecto.
               </p>
 
               <div className="pt-2">
-                <button
-                  id="schedule-call-button"
-                  onClick={onOpenSchedule}
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-[#1B1B21] text-[#F4F1ED] border border-[#292930] rounded-[6px] font-['IBM_Plex_Sans'] font-semibold text-[15px] hover:border-[#B66A43] hover:text-[#D38A5F] hover:bg-[#202026] transition-all cursor-pointer shadow-sm"
-                >
-                  <Calendar className="w-5 h-5 text-[#B66A43]" />
-                  <span>Agendar llamada de 30 minutos</span>
-                </button>
+                {WHATSAPP_URL ? (
+                  <a
+                    id="whatsapp-cta"
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-[#1B1B21] text-[#F4F1ED] border border-[#292930] rounded-[6px] font-['IBM_Plex_Sans'] font-semibold text-[15px] hover:border-[#B66A43] hover:text-[#D38A5F] hover:bg-[#202026] transition-all cursor-pointer shadow-sm"
+                  >
+                    <MessageCircle className="w-5 h-5 text-[#B66A43]" />
+                    <span>Conversemos por WhatsApp</span>
+                  </a>
+                ) : (
+                  <a
+                    id="whatsapp-cta-fallback"
+                    href="#contact-form"
+                    className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-[#1B1B21] text-[#F4F1ED] border border-[#292930] rounded-[6px] font-['IBM_Plex_Sans'] font-semibold text-[15px] hover:border-[#B66A43] hover:text-[#D38A5F] hover:bg-[#202026] transition-all cursor-pointer shadow-sm"
+                  >
+                    <MessageCircle className="w-5 h-5 text-[#B66A43]" />
+                    <span>Escríbeme por el formulario</span>
+                  </a>
+                )}
               </div>
             </div>
 
