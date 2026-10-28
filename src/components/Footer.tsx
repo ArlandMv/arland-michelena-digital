@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
+import { SOCIAL_LINKS } from '../data/portfolioData';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -32,22 +33,18 @@ export const Footer: React.FC = () => {
 
         {/* Right Links & Back to Top */}
         <div className="flex items-center gap-6 flex-wrap">
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-['IBM_Plex_Mono'] text-[12px] text-[#d3c1cf] hover:text-[#B66A43] transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-['IBM_Plex_Mono'] text-[12px] text-[#d3c1cf] hover:text-[#B66A43] transition-colors"
-          >
-            GitHub
-          </a>
+          {SOCIAL_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${link.label} de Arland Michelena (se abre en una pestaña nueva)`}
+              className="font-['IBM_Plex_Mono'] text-[12px] text-[#d3c1cf] hover:text-[#D38A5F] transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
           <a
             href="https://arlandstack.com"
             target="_blank"
