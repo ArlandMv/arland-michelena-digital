@@ -1,6 +1,6 @@
 import React from 'react';
 import { PROCESS_DATA } from '../data/portfolioData';
-import { Layers, ArrowRight } from 'lucide-react';
+import { Layers, ArrowRight, Package } from 'lucide-react';
 
 interface ProcessSectionProps {
   onOpenSchedule: () => void;
@@ -54,9 +54,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenSchedule }
         {/* Commercial Callout Box */}
         <div className="bg-[#1B1B21] border border-[#B66A43]/40 rounded-[8px] p-6 lg:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-lg">
           <div className="flex items-center gap-4">
-            <span className="material-symbols-outlined text-[#B66A43] text-[28px] shrink-0">
-              deployed_code
-            </span>
+            <Package className="w-7 h-7 text-[#B66A43] shrink-0" aria-hidden="true" />
             <p className="font-['IBM_Plex_Sans'] text-[15px] sm:text-[16px] leading-relaxed text-[#F4F1ED]">
               Puedo entrar en un proyecto como implementador técnico o asumir una solución de punta a punta, dependiendo del alcance.
             </p>
