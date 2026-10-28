@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 06:00 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 06:45 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -11,7 +11,7 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 - Al cambiar el estado, actualizar el documento y esta tabla en el mismo PR.
 
 ## Estado general
-- El CI de GitHub (lint, build, E2E) pasa.
+- El CI de GitHub (lint, build, E2E) pasa; las pruebas E2E corren en Chromium y WebKit (Safari), escritorio y móvil ([024](024-webkit-ci.md)).
 - Después de cada push a `main`, el workflow **Smoke test producción** verifica arlandstack.com ([022](022-smoke-produccion.md)).
 - El check **Workers Builds** de Cloudflare pasa desde que `wrangler.jsonc` está versionado ([004](004-despliegue.md)).
 - La agenda simulada se reemplazó por WhatsApp ([002](002-agenda-whatsapp.md)); el formulario guarda los leads en Airtable con Turnstile, honeypot y rate-limit ([001](001-formulario-contacto.md), [020](020-formulario-punta-a-punta.md)).
@@ -42,3 +42,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [021](021-pruebas-movil-a11y-seo.md) | Pruebas de móvil, navegación, accesibilidad, consola, recursos y SEO | #34, #35 | media | Implementada (Ciclo 10) |
 | [022](022-smoke-produccion.md) | Smoke test contra producción después de cada deploy | #36 | media | Implementada (Ciclo 11) |
 | [023](023-fuentes-self-host.md) | Fuentes servidas desde el propio dominio (self-host) | #12 | media | Implementada (Ciclo 12) |
+| [024](024-webkit-ci.md) | Pruebas en WebKit (Safari) escritorio y iPhone, también en CI | #34, #35 | media | Implementada (Ciclo 13) |
