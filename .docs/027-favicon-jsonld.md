@@ -3,7 +3,7 @@
 - **Issue:** [#10](https://github.com/ArlandMv/arland-michelena-digital/issues/10) (resto: canonical, og:url y og:image ya se resolvieron en el Ciclo 10, ver [021](021-pruebas-movil-a11y-seo.md) y [008](008-seo-og.md))
 - **Ciclo:** 16 (28-10-2026)
 - **Prioridad:** media · **Tipo:** SEO / redes
-- **Estado:** Implementado, probado y mergeado a `main` (release #70, `aacd780`). **Deploy a producción pendiente**: Workers Builds no inicializó el build de `main` (ver "Incidente de deploy").
+- **Estado:** Implementado, probado, mergeado a `main` (release #70, `aacd780`) y **en producción desde el 28-10-2026 09:34 (hora de Chile)**, tras reintentar el build de `main` (ver "Incidente de deploy").
 
 ## Problema
 - El sitio no declaraba favicon: los navegadores pedían `/favicon.ico` y, por el `not_found_handling: single-page-application` del Worker, recibían **200 con el HTML de la SPA** (ícono genérico en pestañas, marcadores y resultados de Google).
@@ -53,3 +53,9 @@ Para el JSON-LD:
 1. Reintentar el build de `main` desde el dashboard (Workers → arland-michelena-digital → Deployments/Builds → *Retry*) o con la API de Workers Builds cuando Cloudflare normalice; luego re-ejecutar el workflow smoke.
 2. Si persiste "unable to verify Worker": revisar en el dashboard que la conexión con GitHub y el *build token* sigan válidos (los builds de ramas sí funcionaron, así que es poco probable).
 3. Último recurso (decisión de Arland): `npx wrangler deploy` manual desde `main` con `WORKERS_CI_COMMIT_SHA=aacd780…` para que el meta `build-commit` coincida.
+
+### Resolución (Ciclo 17, 28-10-2026)
+- Se lanzó un build manual del trigger de producción con la API de Workers Builds (`POST /accounts/{id}/builds/triggers/{trigger_uuid}/builds` con `branch: main` y el **SHA completo** `aacd780bbf2b39fd1ff5499c6578170e83c5daac`). Terminó en `success` en ~30 s y producción pasó a servir `aacd780`.
+- Aprendizaje: un primer reintento con un SHA abreviado/incorrecto terminó en `fail` con *"error fetching repository"*: la API exige el hash completo y exacto. El fallo original (*"unable to verify Worker"*) fue transitorio, coincidente con el incidente de Cloudflare en IAD.
+- Verificación en `https://arlandstack.com`: `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `icon-512.png` y `site.webmanifest` responden 200 con su `content-type`; el JSON-LD está en el HTML. Se re-ejecutó el workflow *Smoke test producción* del commit `aacd780`.
+- No hizo falta `wrangler deploy` manual.

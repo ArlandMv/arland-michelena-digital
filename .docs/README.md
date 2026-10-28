@@ -45,4 +45,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [024](024-webkit-ci.md) | Pruebas en WebKit (Safari) escritorio y iPhone, también en CI | #34, #35 | media | Implementada (Ciclo 13) |
 | [025](025-lcp-hero-y-etiquetas.md) | Imagen LCP del hero en AVIF precargado y etiquetas decorativas en español | #62 | media | Implementada (Ciclo 14) |
 | [026](026-turnstile-diferido.md) | Turnstile diferido hasta acercarse al formulario y dns-prefetch del beacon | #65 | media | Implementada (Ciclo 15); auto-inyección del beacon: decisión de Arland |
-| [027](027-favicon-jsonld.md) | Favicon SVG + respaldos PNG/ICO, apple-touch-icon, manifest y JSON-LD Person/WebSite | #10 | media | Implementada (Ciclo 16) |
+| [027](027-favicon-jsonld.md) | Favicon SVG + respaldos PNG/ICO, apple-touch-icon, manifest y JSON-LD Person/WebSite | #10 | media | Implementada (Ciclo 16), en producción desde el Ciclo 17 |
