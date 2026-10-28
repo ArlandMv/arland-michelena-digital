@@ -43,11 +43,16 @@ Lighthouse 12.8.2, móvil simulado, Chromium 156 de Playwright desde el box (la 
 
 | Medición | Antes | Después |
 |---|---|---|
-| Producción `https://arlandstack.com/` (3 corridas) | 65 / 91 / 86 → mediana **86** | ver “Producción tras el deploy” |
+| Producción `https://arlandstack.com/` | 65 / 91 / 86 → mediana **86** | 93 / 93 / 91 / 94 → mediana **93** (LCP 2,9–3,2 s, TBT 60–130 ms, CLS 0,013; `f21095f`) |
 | Preview de rama | 97 (Ciclo 14, `perf/lcp-hero-es`) | 98 / 99 / 99 → mediana **99** (LCP 2,0–2,2 s, TBT 30–120 ms, CLS 0,013) |
 | Peticiones a `challenges.cloudflare.com` en la carga inicial | 6 (preview Ciclo 14) / 13 (producción) | **0**; 14 al bajar al formulario |
 
 ### Verificación del widget en la preview
 Al bajar a `#contacto` (Pixel 7, escritorio 1440 px y iPhone 14/WebKit) se descarga `api.js?render=explicit`, se renderiza el widget y aparece el input `cf-turnstile-response`. En los dominios `*.workers.dev` de preview el widget muestra “No es posible conectarse al sitio web” — **ocurre igual en la preview del Ciclo 14 (carga implícita)**: el hostname de preview no está en la lista de dominios del widget de Turnstile. En producción (`arlandstack.com`) el widget muestra “Verifique que es un ser humano”. Si se quiere probar el formulario completo en previews, agregar `michelenaarland.workers.dev` a los hostnames del widget en el dashboard de Turnstile (decisión de Arland).
+
+### Producción tras el deploy (`f21095f`, release #67)
+- Smoke de producción en verde (workflow `smoke.yml`, meta `build-commit`).
+- 0 peticiones a Turnstile en la carga inicial; al bajar al formulario se carga y muestra “Verifique que es un ser humano” (Pixel 7, escritorio, iPhone 14/WebKit).
+- Lo que queda entre 93 y 95+: el LCP en producción tiene ~1,6 s de *render delay* simulado (espera al bundle JS de 77 KB gzip que renderiza el hero; ~29 KB sin usar) y la CSS de 8 KB bloquea el render. Próximos pasos posibles: pre-renderizar el hero en `index.html` (o SSG) para que la gema pinte sin esperar a React, dividir el bundle (`React.lazy` para secciones bajo el pliegue) e inline del CSS crítico.
 
 Capturas: `/workspace/ciclo15/` en el box (no se versionan).
