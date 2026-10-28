@@ -142,8 +142,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
           <button
             id="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            type="button"
             className="md:hidden p-2 text-[#F4F1ED] hover:text-[#B66A43] focus:outline-none"
-            aria-label="Abrir menú móvil"
+            aria-label={mobileMenuOpen ? 'Cerrar menú móvil' : 'Abrir menú móvil'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu-drawer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
