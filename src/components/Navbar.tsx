@@ -185,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 bg-[#1B1B21] hover:bg-[#292930] text-[#B66A43] text-sm font-semibold rounded-[6px] border border-[#292930] flex items-center justify-center gap-1.5"
+              className="w-full text-center py-2 bg-[#1B1B21] hover:bg-[#292930] text-[#D38A5F] text-sm font-semibold rounded-[6px] border border-[#292930] flex items-center justify-center gap-1.5"
             >
               <span>Conversemos por WhatsApp</span>
               <ArrowUpRight className="w-4 h-4" />

@@ -104,7 +104,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
         ) : (
           <>
             <div className="flex flex-col gap-1 border-b border-[#292930] pb-4">
-              <span className="font-['IBM_Plex_Mono'] text-[11px] text-[#B66A43] uppercase tracking-wider font-semibold">
+              <span className="font-['IBM_Plex_Mono'] text-[11px] text-[#D38A5F] uppercase tracking-wider font-semibold">
                 SESIÓN DE DESCUBRIMIENTO TÉCNICO
               </span>
               <h3 className="font-['IBM_Plex_Sans'] text-xl sm:text-2xl font-medium text-[#F4F1ED]">
@@ -115,11 +115,11 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
               </p>
               <div className="flex items-center gap-4 text-[12px] text-[#A8A6AD] mt-1">
                 <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-[#B66A43]" />
+                  <Clock className="w-3.5 h-3.5 text-[#D38A5F]" />
                   30 min
                 </span>
                 <span className="flex items-center gap-1">
-                  <Video className="w-3.5 h-3.5 text-[#B66A43]" />
+                  <Video className="w-3.5 h-3.5 text-[#D38A5F]" />
                   Google Meet
                 </span>
                 <span className="font-['IBM_Plex_Mono'] text-[11px]">
