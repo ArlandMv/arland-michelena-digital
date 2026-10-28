@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { HERO_DATA } from '../data/portfolioData';
 import { ArrowDown, Radio } from 'lucide-react';
 
+// Deben coincidir con el <link rel="preload" as="image"> de index.html (si no, el navegador descarga dos veces).
+const HERO_MARK_SIZES = '(min-width: 640px) 320px, 288px';
+const HERO_MARK_SRCSET_AVIF = '/brand/logo-mark-320.avif 320w, /brand/logo-mark-480.avif 480w, /brand/logo-mark-640.avif 640w';
+const HERO_MARK_SRCSET_WEBP = '/brand/logo-mark-320.webp 320w, /brand/logo-mark-480.webp 480w, /brand/logo-mark-640.webp 640w';
+const escapeAttr = (v: string) => v.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const HERO_MARK_HTML =
+  '<picture class="block w-full h-full">' +
+  `<source type="image/avif" srcset="${HERO_MARK_SRCSET_AVIF}" sizes="${HERO_MARK_SIZES}">` +
+  `<img src="${HERO_DATA.facetedMarkUrl}" srcset="${HERO_MARK_SRCSET_WEBP}" sizes="${HERO_MARK_SIZES}"` +
+  ` alt="${escapeAttr(HERO_DATA.facetedMarkAlt)}" width="640" height="640" fetchpriority="high" loading="eager" decoding="async"` +
+  ' class="w-full h-full object-contain filter drop-shadow-[0_16px_36px_rgba(122,46,132,0.35)] select-none">' +
+  '</picture>';
+
 interface HeroSectionProps {
   onOpenSchedule: () => void;
 }
@@ -115,14 +128,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
             className="pt-4 grid grid-cols-3 gap-3 w-full max-w-md border-t border-[#292930]/70 mt-3"
           >
             <div>
-              <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">COORDINATES</span>
+              <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">COORDENADAS</span>
               <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#d3c1cf] font-medium">
                 {HERO_DATA.coordinates}
               </span>
             </div>
 
             <div>
-              <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">LOCATION</span>
+              <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">UBICACIÓN</span>
               <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#d3c1cf] font-medium flex items-center gap-1">
                 <span>{HERO_DATA.timezone}</span>
                 {sclTime && (
@@ -132,10 +145,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
             </div>
 
             <div>
-              <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">STATUS</span>
+              <span className="block font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD]">ESTADO</span>
               <span className="font-['IBM_Plex_Mono'] text-[12px] text-[#D38A5F] flex items-center gap-1 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B66A43] animate-pulse" />
-                ACTIVE
+                ACTIVO
               </span>
             </div>
           </div>
@@ -156,18 +169,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
             {/* Structural corner registration markers */}
             <div className="absolute top-3 left-3 font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider select-none flex items-center gap-1">
               <span className="w-1.5 h-1.5 border-t border-l border-[#A8A6AD]" />
-              GRID:REF_001
+              GRILLA:REF_001
             </div>
             <div className="absolute top-3 right-3 font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider select-none flex items-center gap-1">
-              SYS:PROD
+              SIS:PROD
               <span className="w-1.5 h-1.5 border-t border-r border-[#A8A6AD]" />
             </div>
             <div className="absolute bottom-3 left-3 font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider select-none flex items-center gap-1">
               <span className="w-1.5 h-1.5 border-b border-l border-[#A8A6AD]" />
-              ENG_GEOMETRY
+              GEOMETRÍA_ING
             </div>
             <div className="absolute bottom-3 right-3 font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider select-none flex items-center gap-1">
-              100% VECTOR_OCTA
+              100% VECTORIAL_OCTA
               <span className="w-1.5 h-1.5 border-b border-r border-[#A8A6AD]" />
             </div>
 
@@ -188,25 +201,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
                     : 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)',
                 }}
               >
-                <img
-                  src={HERO_DATA.facetedMarkUrl}
-                  srcSet="/brand/logo-mark-320.webp 320w, /brand/logo-mark-640.webp 640w"
-                  sizes="(min-width: 640px) 320px, 288px"
-                  alt={HERO_DATA.facetedMarkAlt}
-                  width={640}
-                  height={640}
-                  fetchPriority="high"
-                  className="w-full h-full object-contain filter drop-shadow-[0_16px_36px_rgba(122,46,132,0.35)] select-none"
-                  loading="eager"
-                />
+                {/*
+                  Ciclo 14: imagen LCP. AVIF (12–35 KB) con respaldo WebP; index.html la precarga con el
+                  mismo srcset/sizes. Se inserta como HTML (no como elementos React) para que el <img> nazca
+                  ya dentro del <picture>: React crea el <img> suelto y le asigna srcset antes de anexarlo,
+                  y WebKit alcanza a descargar la variante WebP además de la AVIF (doble descarga).
+                */}
+                <div className="contents" dangerouslySetInnerHTML={{ __html: HERO_MARK_HTML }} />
               </div>
             </div>
 
             {/* Container Spec Readout */}
             <div className="relative z-10 w-full pt-3 border-t border-[#292930] flex items-center justify-between text-[#A8A6AD] font-['JetBrains_Mono'] text-[11px]">
-              <span className="tracking-wider">FULL FACETED MARK // V-2025</span>
+              <span className="tracking-wider">MARCA FACETADA COMPLETA // V-2025</span>
               <span className="text-[#D38A5F] font-['IBM_Plex_Mono'] font-medium tracking-wider">
-                PURPLE_AMETHYST_CORE
+                NÚCLEO_AMATISTA
               </span>
             </div>
           </div>

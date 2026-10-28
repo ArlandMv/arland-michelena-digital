@@ -70,16 +70,16 @@ export const SelectedWorkSection: React.FC = () => {
             {/* Architecture Diagram 1 */}
             <div className="w-full lg:w-96 bg-[#0D0D0F] p-5 rounded-[6px] border border-[#292930] flex flex-col gap-3">
               <div className="font-['JetBrains_Mono'] text-[10px] text-[#A8A6AD] tracking-wider uppercase border-b border-[#292930] pb-2 flex items-center justify-between">
-                <span>ARCHITECTURE TOPOLOGY</span>
+                <span>TOPOLOGÍA DE ARQUITECTURA</span>
                 <span className="text-[#D38A5F] flex items-center gap-1 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#B66A43] animate-pulse" />
-                  SYS_RUNNING
+                  SIS_EN_EJECUCIÓN
                 </span>
               </div>
 
               <div className="flex flex-col gap-2 py-2">
                 <div className="bg-[#141418] border border-[#292930] px-3 py-2 rounded text-center font-['JetBrains_Mono'] text-[13px] text-[#F4F1ED] flex items-center justify-between">
-                  <span>[VPS Dedicated Host]</span>
+                  <span>[Host VPS dedicado]</span>
                   <span className="w-2 h-2 rounded-full bg-[#B66A43]" />
                 </div>
 
@@ -88,15 +88,15 @@ export const SelectedWorkSection: React.FC = () => {
                 </div>
 
                 <div className="bg-[#2a2a2c] border border-[#7A2E84] px-3 py-2.5 rounded text-center font-['JetBrains_Mono'] text-[13px] text-[#f9a1ff] shadow-[0_0_12px_rgba(122,46,132,0.2)]">
-                  [Huly Core & Microservices]
+                  [Núcleo Huly y microservicios]
                 </div>
 
                 <div className="text-center font-['JetBrains_Mono'] text-[11px] text-[#D38A5F] leading-none py-0.5">
-                  ↓ Nginx Reverse Proxy
+                  ↓ Nginx (proxy inverso)
                 </div>
 
                 <div className="bg-[#141418] border border-[#292930] px-3 py-2 rounded text-center font-['JetBrains_Mono'] text-[13px] text-[#A8A6AD]">
-                  [SSL / Persistent Volumes]
+                  [SSL / Volúmenes persistentes]
                 </div>
               </div>
             </div>
@@ -129,7 +129,7 @@ export const SelectedWorkSection: React.FC = () => {
                     OQO.cl
                   </span>
                   <span className="font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD] block mt-1">
-                    Nuxt (SSR, routing, rendering pipeline)
+                    Nuxt (SSR, ruteo, pipeline de renderizado)
                   </span>
                 </div>
 
@@ -147,7 +147,7 @@ export const SelectedWorkSection: React.FC = () => {
                     Belkin.cl
                   </span>
                   <span className="font-['JetBrains_Mono'] text-[11px] text-[#A8A6AD] block mt-1">
-                    Shopify ecommerce (liquid, scripts & assets)
+                    Shopify ecommerce (Liquid, scripts y assets)
                   </span>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export const SelectedWorkSection: React.FC = () => {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {['Nuxt', 'Salesforce B2C', 'Shopify', 'Web Standards'].map((tag) => (
+                {['Nuxt', 'Salesforce B2C', 'Shopify', 'Estándares web'].map((tag) => (
                   <span
                     key={tag}
                     className="px-2.5 py-1 bg-[#0D0D0F] font-['JetBrains_Mono'] text-[11px] text-[#D8D3CD] rounded border border-[#292930]"
@@ -185,7 +185,7 @@ export const SelectedWorkSection: React.FC = () => {
                   IA / SISTEMAS INTERNOS
                 </span>
                 <span className="px-2.5 py-0.5 rounded bg-[#70402D]/30 border border-[#B66A43] text-[#D38A5F] font-['IBM_Plex_Mono'] text-[11px] font-medium">
-                  IN DEVELOPMENT
+                  EN DESARROLLO
                 </span>
               </div>
 
@@ -246,7 +246,7 @@ export const SelectedWorkSection: React.FC = () => {
                 </div>
 
                 <div className="flex justify-center text-[#D38A5F] font-['IBM_Plex_Mono'] text-[10px] leading-none py-0.5">
-                  │ Embeddings Query
+                  │ Consulta de embeddings
                 </div>
 
                 {/* Node 4 */}
