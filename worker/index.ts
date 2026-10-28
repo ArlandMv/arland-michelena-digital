@@ -29,6 +29,11 @@ const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
 const hits = new Map<string, number[]>();
 
+/** Solo para pruebas: vacía el contador de rate-limit. */
+export function resetRateLimit() {
+  hits.clear();
+}
+
 function rateLimited(ip: string): boolean {
   const now = Date.now();
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
@@ -71,16 +76,23 @@ export function validate(input: Record<string, unknown>) {
 
 async function verifyTurnstile(secret: string, token: string, ip: string): Promise<boolean> {
   if (!token) return false;
+  // Si siteverify no responde, se trata como verificación fallida (nunca 500 sin cuerpo).
   const body = new FormData();
   body.append('secret', secret);
   body.append('response', token);
   if (ip) body.append('remoteip', ip);
-  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
-  const out = (await res.json()) as { success?: boolean };
-  return out.success === true;
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+    const out = (await res.json()) as { success?: boolean; 'error-codes'?: string[] };
+    if (out.success !== true) console.warn('contact: Turnstile rechazó el token', out['error-codes']);
+    return out.success === true;
+  } catch (err) {
+    console.error('contact: siteverify no disponible', err);
+    return false;
+  }
 }
 
-async function handleContact(request: Request, env: Env): Promise<Response> {
+export async function handleContact(request: Request, env: Env): Promise<Response> {
   if (request.method !== 'POST') return json(405, { ok: false, error: 'method_not_allowed' });
   if (!env.AIRTABLE_TOKEN || !env.AIRTABLE_BASE_ID || !env.AIRTABLE_TABLE_ID || !env.TURNSTILE_SECRET_KEY) {
     console.error('contact: faltan variables de entorno');
@@ -109,7 +121,9 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     return json(403, { ok: false, error: 'turnstile' });
   }
 
-  const res = await fetch(
+  let res: Response;
+  try {
+    res = await fetch(
     `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${env.AIRTABLE_TABLE_ID}`,
     {
       method: 'POST',
@@ -133,6 +147,10 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       }),
     },
   );
+  } catch (err) {
+    console.error('contact: Airtable no disponible', err);
+    return json(502, { ok: false, error: 'upstream' });
+  }
   if (!res.ok) {
     console.error('contact: Airtable respondió', res.status, await res.text());
     return json(502, { ok: false, error: 'upstream' });
@@ -143,7 +161,15 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
-    if (url.pathname === '/api/contact') return handleContact(request, env);
+    if (url.pathname === '/api/contact') {
+      try {
+        return await handleContact(request, env);
+      } catch (err) {
+        // Cualquier error inesperado responde JSON (antes podía salir un 500 sin cuerpo).
+        console.error('contact: error inesperado', err);
+        return json(500, { ok: false, error: 'internal' });
+      }
+    }
     if (url.pathname.startsWith('/api/')) return json(404, { ok: false, error: 'not_found' });
     return env.ASSETS.fetch(request);
   },

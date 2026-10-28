@@ -1,7 +1,7 @@
 # 001 — Formulario de contacto real
 
 - **Issue:** #3 · **Prioridad alta**
-- **Estado:** Implementado (pendiente cargar secrets en Cloudflare)
+- **Estado:** Implementado; secrets cargados y verificado de punta a punta en el Ciclo 08 ([020](020-formulario-punta-a-punta.md))
 
 ## Problema y evidencia
 `src/components/ContactSection.tsx:21-27` simula el envío (`setTimeout` → `success`); `POST /api/contact` responde 405. Los mensajes de clientes se pierden. Issue: [https://github.com/ArlandMv/arland-michelena-digital/issues/3](https://github.com/ArlandMv/arland-michelena-digital/issues/3).

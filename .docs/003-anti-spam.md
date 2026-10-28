@@ -1,7 +1,7 @@
 # 003 — Protección anti-spam del formulario
 
 - **Issue:** #5 · **Prioridad alta**
-- **Estado:** Propuesta
+- **Estado:** Implementada (Turnstile + honeypot + rate-limit por instancia; ver [020](020-formulario-punta-a-punta.md)). Pendiente: límite global con regla WAF.
 
 ## Problema y evidencia
 Solo validación HTML (`required`, `type=email`). Issue: [https://github.com/ArlandMv/arland-michelena-digital/issues/5](https://github.com/ArlandMv/arland-michelena-digital/issues/5).
