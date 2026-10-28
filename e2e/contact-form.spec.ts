@@ -31,3 +31,20 @@ test('muestra error si el servidor rechaza el envío', async ({ page }) => {
   await expect(page.locator('#form-error-message')).toContainText('verificar');
   await expect(page.locator('#contact-form')).toBeVisible();
 });
+
+test('muestra los campos inválidos que informa el servidor (422)', async ({ page }) => {
+  await page.route('**/api/contact', (route) =>
+    route.fulfill({ status: 422, contentType: 'application/json', body: '{"ok":false,"error":"validation","fields":["email","message"]}' }),
+  );
+  await fillForm(page);
+  await page.click('#contact-submit-button');
+  await expect(page.locator('#form-error-message')).toContainText('email válido');
+  await expect(page.locator('#form-error-message')).toContainText('mensaje');
+});
+
+test('muestra error genérico si la respuesta no es JSON', async ({ page }) => {
+  await page.route('**/api/contact', (route) => route.fulfill({ status: 500, body: '' }));
+  await fillForm(page);
+  await page.click('#contact-submit-button');
+  await expect(page.locator('#form-error-message')).toContainText('No se pudo enviar');
+});

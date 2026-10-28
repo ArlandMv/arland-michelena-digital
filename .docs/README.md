@@ -2,7 +2,7 @@
 
 Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio publicado en https://arlandstack.com.
 
-**Última actualización:** 28-10-2026, 03:55 (hora de Chile, UTC-3).
+**Última actualización:** 28-10-2026, 04:45 (hora de Chile, UTC-3).
 
 ## Cómo se usa
 - Un archivo por tema: `NNN-titulo.md`, con problema, evidencia, alternativas, solución escogida, estado y pendientes.
@@ -13,14 +13,14 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 ## Estado general
 - El CI de GitHub (lint, build, E2E) pasa.
 - El check **Workers Builds** de Cloudflare pasa desde que `wrangler.jsonc` está versionado ([004](004-despliegue.md)).
-- La agenda simulada se reemplazó por WhatsApp ([002](002-agenda-whatsapp.md)); el formulario aún no entrega mensajes ([001](001-formulario-contacto.md)).
+- La agenda simulada se reemplazó por WhatsApp ([002](002-agenda-whatsapp.md)); el formulario guarda los leads en Airtable con Turnstile, honeypot y rate-limit ([001](001-formulario-contacto.md), [020](020-formulario-punta-a-punta.md)).
 
 ## Índice
 | # | Tema | Issue | Prioridad | Estado |
 |---|---|---|---|---|
-| [001](001-formulario-contacto.md) | Formulario de contacto real | #3 | alta | Propuesta |
+| [001](001-formulario-contacto.md) | Formulario de contacto real | #3 | alta | Implementada (Ciclo 08) |
 | [002](002-agenda-whatsapp.md) | Agenda simulada → WhatsApp | #4, #18 | alta | Implementada en `dev` ([PR #19](https://github.com/ArlandMv/arland-michelena-digital/pull/19)); falta `VITE_WHATSAPP_NUMBER` en Cloudflare |
-| [003](003-anti-spam.md) | Protección anti-spam del formulario | #5 | alta | Propuesta |
+| [003](003-anti-spam.md) | Protección anti-spam del formulario | #5 | alta | Implementada (Ciclo 08); rate-limit global pendiente |
 | [004](004-despliegue.md) | Una sola vía de despliegue | #6 | alta | Implementada en `dev` ([PR #21](https://github.com/ArlandMv/arland-michelena-digital/pull/21)) |
 | [005](005-ci-ramas.md) | CI escuchando `develop` | #7 | media | Resuelto en `dev`; llega a `main` con el PR `dev` → `main` |
 | [006](006-cabeceras-seguridad.md) | Cabeceras de seguridad y CSP | #8 | media | Propuesta |
@@ -37,3 +37,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [017](017-turnstile-y-secrets.md) | Activación del formulario: Turnstile, secrets y variable de build | — | alta | Implementado |
 | [018](018-etiquetas-espanol.md) | Etiquetas de sección en inglés | #32 | media | Implementada (Ciclo 03) |
 | [019](019-schedule-modal-honesto.md) | ScheduleModal simulaba reservas | #4 | alta | Implementada (Ciclo 04) |
+| [020](020-formulario-punta-a-punta.md) | Formulario de punta a punta: errores JSON y pruebas del endpoint | #3, #5, #33 | alta | Implementada (Ciclo 08) |
