@@ -34,3 +34,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [014](014-limpieza-aistudio.md) | Restos de AI Studio | #16 | baja | Propuesta |
 | [015](015-rama-first-design.md) | Rama first-design obsoleta | #17 | baja | Esperando decisión de Arland |
 | [016](016-agenda-reuniones.md) | Agenda de reuniones (Calendly / Cal.com / Google Calendar) | #24 | media | Propuesta — decisión de Arland |
+| [017](017-turnstile-y-secrets.md) | Activación del formulario: Turnstile, secrets y variable de build | — | alta | Implementado |
