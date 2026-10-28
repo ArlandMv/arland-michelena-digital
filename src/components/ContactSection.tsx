@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MessageCircle, CheckCircle, Send, Copy, ExternalLink, Loader2, AlertTriangle } from 'lucide-react';
 import { ContactFormData } from '../types';
+import { WHATSAPP_URL } from '../config/contact';
 
 interface ContactSectionProps {
   onOpenSchedule: () => void;
 }
-
-// Número en formato internacional sin '+' ni espacios (p. ej. 569XXXXXXXX). Ver .env.example.
-const WHATSAPP_NUMBER = (import.meta.env.VITE_WHATSAPP_NUMBER ?? '').replace(/\D/g, '');
-const WHATSAPP_MESSAGE =
-  'Hola Arland, vi tu portafolio en arlandstack.com y me gustaría conversar sobre un proyecto. Mi nombre es ___ y mi empresa es ___.';
-const WHATSAPP_URL = WHATSAPP_NUMBER
-  ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-  : '';
 
 // Site key pública de Cloudflare Turnstile (no es secreta). Ver .env.example y .docs/003-anti-spam.md.
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '';
