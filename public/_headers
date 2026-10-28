@@ -10,5 +10,9 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
 
+# Ciclo 14: imágenes de marca (nombres sin hash): 1 día fresco + revalidación en segundo plano.
+/brand/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

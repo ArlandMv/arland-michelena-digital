@@ -43,3 +43,4 @@ Registro de hallazgos de la auditoría y decisiones (estilo ADR) del portafolio 
 | [022](022-smoke-produccion.md) | Smoke test contra producción después de cada deploy | #36 | media | Implementada (Ciclo 11) |
 | [023](023-fuentes-self-host.md) | Fuentes servidas desde el propio dominio (self-host) | #12 | media | Implementada (Ciclo 12) |
 | [024](024-webkit-ci.md) | Pruebas en WebKit (Safari) escritorio y iPhone, también en CI | #34, #35 | media | Implementada (Ciclo 13) |
+| [025](025-lcp-hero-y-etiquetas.md) | Imagen LCP del hero en AVIF precargado y etiquetas decorativas en español | #62 | media | Implementada (Ciclo 14) |

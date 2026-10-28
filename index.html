@@ -16,6 +16,10 @@
     <meta property="og:image:alt" content="ARLAND — Ingeniero Full-Stack e IA · arlandstack.com" />
     <link rel="canonical" href="https://arlandstack.com/" />
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Ciclo 14: precarga de la imagen LCP (gema del hero). Mismo srcset/sizes que el <source> AVIF de HeroSection. -->
+    <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+      imagesrcset="/brand/logo-mark-320.avif 320w, /brand/logo-mark-480.avif 480w, /brand/logo-mark-640.avif 640w"
+      imagesizes="(min-width: 640px) 320px, 288px" />
   </head>
   <body class="bg-[#0D0D0F] text-[#F4F1ED] antialiased selection:bg-[#7A2E84] selection:text-[#F4F1ED]">
     <div id="root"></div>
