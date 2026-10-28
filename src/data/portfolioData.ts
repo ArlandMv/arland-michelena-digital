@@ -6,12 +6,12 @@ export const HERO_DATA = {
   location: 'Santiago, Chile',
   coordinates: '-33.4489, -70.6693',
   timezone: 'SCL / UTC-3',
-  status: 'ACTIVE',
+  status: 'ACTIVO',
   headline: 'Construyo sistemas completos, desde la aplicación hasta producción.',
   subheadline: 'Desarrollo aplicaciones, automatizaciones e integraciones de IA para startups, agencias y equipos que necesitan convertir una necesidad técnica en un sistema funcionando en producción.',
   logoUrl: '/brand/logo-mark-64.webp',
-  facetedMarkUrl: '/brand/logo-mark-640.webp',
-  facetedMarkAlt: 'A striking precision 3D faceted geometric icosahedron emblem rendered in deep royal violet with polished copper and rose-gold chamfered structural edges, floating symmetrically on a technical dark blueprint background with subtle coordinate lines and high-contrast ambient lighting.'
+  facetedMarkUrl: '/brand/logo-mark-480.webp',
+  facetedMarkAlt: 'Emblema de ARLAND: icosaedro facetado en 3D, violeta profundo con aristas de cobre y oro rosa, sobre un fondo oscuro tipo plano técnico.'
 };
 
 export const SERVICES_DATA: ServiceItem[] = [
@@ -59,9 +59,9 @@ export const PROJECTS_DATA: ProjectCase[] = [
     platforms: [
       { name: 'OQO.cl', description: 'Nuxt (SSR, routing, rendering pipeline)' },
       { name: 'CEIM.cl', description: 'Salesforce B2C (arquitectura componentes)' },
-      { name: 'Belkin.cl', description: 'Shopify ecommerce (liquid, scripts & assets)' }
+      { name: 'Belkin.cl', description: 'Shopify ecommerce (Liquid, scripts y assets)' }
     ],
-    tags: ['Nuxt', 'Salesforce B2C', 'Shopify', 'Web Standards'],
+    tags: ['Nuxt', 'Salesforce B2C', 'Shopify', 'Estándares web'],
     architectureType: 'platforms'
   },
   {

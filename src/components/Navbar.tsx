@@ -67,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
                 srcSet={`${HERO_DATA.logoUrl} 1x, /brand/logo-mark-128.webp 2x`}
                 width={32}
                 height={32}
-                alt="ARLAND Logo"
+                alt="Logo de ARLAND"
                 className="relative z-10 h-full w-full object-contain"
                 onError={(e) => {
                   // Fallback if network blocked

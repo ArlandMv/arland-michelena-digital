@@ -161,7 +161,7 @@ async function main() {
 
   await check('Logo e imagen OG cargan', async () => {
     const og = html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i)?.[1];
-    const urls = [`${BASE}/brand/logo-mark-320.webp`, `${BASE}/brand/logo-mark-128.webp`];
+    const urls = [`${BASE}/brand/logo-mark-320.webp`, `${BASE}/brand/logo-mark-480.avif`, `${BASE}/brand/logo-mark-128.webp`];
     if (og) urls.push(og.startsWith('http') ? og.replace(/^https?:\/\/[^/]+/, BASE) : `${BASE}${og}`);
     for (const url of urls) {
       const res = await get(url);
