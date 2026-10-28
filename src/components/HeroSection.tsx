@@ -190,7 +190,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenSchedule }) => {
               >
                 <img
                   src={HERO_DATA.facetedMarkUrl}
+                  srcSet="/brand/logo-mark-320.webp 320w, /brand/logo-mark-640.webp 640w"
+                  sizes="(min-width: 640px) 320px, 288px"
                   alt={HERO_DATA.facetedMarkAlt}
+                  width={640}
+                  height={640}
+                  fetchPriority="high"
                   className="w-full h-full object-contain filter drop-shadow-[0_16px_36px_rgba(122,46,132,0.35)] select-none"
                   loading="eager"
                 />

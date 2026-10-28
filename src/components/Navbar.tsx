@@ -64,8 +64,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
             <div className="relative h-8 w-8 rounded bg-[#1B1B21] border border-[#292930] p-1 flex items-center justify-center overflow-hidden group-hover:border-[#B66A43] transition-colors">
               <img
                 src={HERO_DATA.logoUrl}
+                srcSet={`${HERO_DATA.logoUrl} 1x, /brand/logo-mark-128.webp 2x`}
+                width={32}
+                height={32}
                 alt="ARLAND Logo"
-                className="h-full w-full object-contain"
+                className="relative z-10 h-full w-full object-contain"
                 onError={(e) => {
                   // Fallback if network blocked
                   (e.target as HTMLElement).style.display = 'none';
