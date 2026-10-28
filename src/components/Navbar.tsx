@@ -128,13 +128,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSchedule }) => {
           <button
             id="header-profile-icon"
             type="button"
-            // Agenda deshabilitada hasta implementar agenda real (ver .docs/016-agenda-reuniones.md).
-            // Antes: onClick={onOpenSchedule}
-            disabled
-            aria-disabled="true"
-            title="Agenda en desarrollo"
-            aria-label="Agenda en desarrollo"
-            className="w-8 h-8 rounded-full bg-[#7A2E84] flex items-center justify-center text-[#F4F1ED] focus:outline-none cursor-not-allowed opacity-50"
+            // Reactivado (#4): el modal ya no simula reservas, propone un horario por WhatsApp.
+            // Agenda real pendiente en #24 (ver .docs/016-agenda-reuniones.md).
+            onClick={onOpenSchedule}
+            title="Proponer una llamada"
+            aria-label="Proponer una llamada técnica"
+            className="w-8 h-8 rounded-full bg-[#7A2E84] hover:bg-[#67276B] flex items-center justify-center text-[#F4F1ED] focus:outline-none cursor-pointer transition-colors"
           >
             <User className="w-4 h-4" />
           </button>

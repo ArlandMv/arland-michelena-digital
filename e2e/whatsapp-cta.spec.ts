@@ -13,10 +13,10 @@ test('CTA de WhatsApp apunta a wa.me con el número y mensaje prellenado', async
   expect(url.searchParams.get('text')).toContain('vi tu portafolio en arlandstack.com');
 });
 
-test('el ícono de agenda del header está deshabilitado', async ({ page }) => {
+test('el ícono de agenda del header abre el modal de propuesta (#4)', async ({ page }) => {
   await page.goto('/');
   const btn = page.locator('#header-profile-icon');
-  await expect(btn).toBeDisabled();
-  await expect(btn).toHaveAttribute('aria-disabled', 'true');
-  await expect(btn).toHaveAttribute('title', 'Agenda en desarrollo');
+  await expect(btn).toBeEnabled();
+  await btn.click();
+  await expect(page.locator('#schedule-modal-dialog')).toBeVisible();
 });
