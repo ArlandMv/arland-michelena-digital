@@ -15,7 +15,7 @@
 | Netlify Forms | Cero backend. También propuesto en AI Studio. | El sitio no está en Netlify; implicaría migrar el hosting. |
 
 ## Solución escogida
-**Airtable vía API desde un Worker de Cloudflare** (decisión de Arland, reemplaza la propuesta inicial de D1 + correo). Los leads se revisan en la base *CRM Leads · arlandstack.com* (`appH6NWzsko5eLlyu`), tabla *Solicitudes de contacto* (`tblY7Lm88XH1YqdM7`).
+**Airtable vía API desde un Worker de Cloudflare** (decisión de Arland, reemplaza la propuesta inicial de D1 + correo). Los leads se revisan en la base *CRM Leads · arlandstack.com* del espacio de trabajo **ArlandStack** (`appP7fO5tHH0hmYal`), tabla *Solicitudes de contacto* (`tblcCzdpPS1DHa7m8`).
 
 ### Implementación
 - `worker/index.ts`: Worker con assets estáticos (Workers Builds, no Pages). `run_worker_first: ["/api/*"]`; el resto lo sirve `env.ASSETS`.

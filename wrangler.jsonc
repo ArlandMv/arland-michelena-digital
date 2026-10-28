@@ -18,8 +18,8 @@
   // Variables NO secretas (los IDs de Airtable no dan acceso sin token).
   // Secrets AIRTABLE_TOKEN y TURNSTILE_SECRET_KEY: `wrangler secret put` o dashboard, nunca aquí.
   "vars": {
-    "AIRTABLE_BASE_ID": "appH6NWzsko5eLlyu",
-    "AIRTABLE_TABLE_ID": "tblY7Lm88XH1YqdM7"
+    "AIRTABLE_BASE_ID": "appP7fO5tHH0hmYal",
+    "AIRTABLE_TABLE_ID": "tblcCzdpPS1DHa7m8"
   },
   "observability": { "enabled": true }
 }
